@@ -2,20 +2,14 @@ package hexlet.code;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
 
 @Command(
     name = "gendiff",
+    mixinStandardHelpOptions = true,
     version = "gendiff 0.1",
     description = "Compares two configuration files and show a difference."
 )
 public class App implements Runnable {
-
-    @Option(names = { "-V", "--version"}, versionHelp = true)
-    private boolean versionInfoRequested;
-
-    @Option(names = { "-h", "--help" }, usageHelp = true, description = "Show this message and exit.")
-    private boolean usageHelpRequested = false;
 
     public static void main(String[] args) {
         new CommandLine(new App()).execute(args);
