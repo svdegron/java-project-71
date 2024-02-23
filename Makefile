@@ -12,3 +12,6 @@ run-V:
 
 run-version:
 	"./build/install/app/bin/app" --version
+
+run-fiels:
+	"./build/install/app/bin/app" "c:\idea-workspace\app2\file1.json" "c:\idea-workspace\app2\file2.json"
