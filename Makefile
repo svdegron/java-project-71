@@ -13,5 +13,8 @@ run-V:
 run-version:
 	"./build/install/app/bin/app" --version
 
-run-fiels:
+run-files:
+	"./build/install/app/bin/app" "file1.json" "file2.json"
+
+run-files-windows:
 	"./build/install/app/bin/app" "c:\idea-workspace\app2\file1.json" "c:\idea-workspace\app2\file2.json"
