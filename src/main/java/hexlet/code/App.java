@@ -24,19 +24,14 @@ public class App implements Callable<Integer> {
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     private Path filepath2;
 
-//    @Override
-//    public void run() {
-//        System.out.println("Hello World!");
-//    }
-
     @Override
     public Integer call() throws Exception {
-        System.out.println("Hello World!");
+        System.out.println(Differ.generate());
         return 0;
     }
 
     public static void main(String[] args) {
-//        new CommandLine(new App()).execute(args);
+        args = new String[] {"c:\\idea-workspace\\app2\\file1.json", "c:\\idea-workspace\\app2\\file2.json"};
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
