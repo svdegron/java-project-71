@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 //import java.util.Set.;
 
 public class Differ {
@@ -39,7 +40,7 @@ public class Differ {
         if (flagLog) System.out.println("keySet1 | " + json1.keySet());
         if (flagLog) System.out.println("keySet2 | " + json2.keySet());
 
-//        List<String> existKeys = new ArrayList<>();
+        List<String> existKeys = new LinkedList<>();
 //        json1.keySet().stream()
 //            .filter(json2::containsKey)
 //            .forEach(existKeys::add);
@@ -56,17 +57,34 @@ public class Differ {
         for (String key : allKeys) {
             if (json1.containsKey(key) && json1.containsKey(key)) {
                 if (json1.get(key).equals(json2.get(key))) {
-                    System.out.println(key + " " + json1.get(key));
+                    if (flagLog) System.out.println(key + " " + json1.get(key));
+                    existKeys.add(key + " " + json1.get(key));
                 } else {
-                    if (json1.get(key) != null) System.out.println("- " + key + " " + json1.get(key));
-                    if (json2.get(key) != null) System.out.println("+ " + key + " " + json2.get(key));
+                    if (json1.get(key) != null) {
+                        if (flagLog) System.out.println("- " + key + " " + json1.get(key));
+                        existKeys.add("- " + key + " " + json1.get(key));
+                    }
+
+                    if (json2.get(key) != null) {
+                        if (flagLog) System.out.println("+ " + key + " " + json2.get(key));
+                        existKeys.add("+ " + key + " " + json2.get(key));
+                    }
                 }
             } else {
-                if (json1.get(key) != null) System.out.println("- " + key + " " + json1.get(key));
-                if (json2.get(key) != null) System.out.println("+ " + key + " " + json2.get(key));
+                if (json1.get(key) != null) {
+                    if (flagLog) System.out.println("- " + key + " " + json1.get(key));
+                    existKeys.add("- " + key + " " + json1.get(key));
+                }
+
+                if (json2.get(key) != null) {
+                    if (flagLog) System.out.println("+ " + key + " " + json2.get(key));
+                    existKeys.add("+ " + key + " " + json2.get(key));
+                }
             }
         }
 
-        return "Hello World! (from Differ)";
+        if (flagLog) System.out.println("---");
+
+        return String.join("\n", existKeys);
     }
 }
