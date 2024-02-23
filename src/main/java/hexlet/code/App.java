@@ -4,7 +4,9 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+
 import java.nio.file.Path;
+//??? import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
 @Command(
@@ -26,12 +28,12 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        System.out.println(Differ.generate());
+        var diff = Differ.generate(filepath1, filepath2);
+        System.out.println(diff);
         return 0;
     }
 
     public static void main(String[] args) {
-        args = new String[] {"c:\\idea-workspace\\app2\\file1.json", "c:\\idea-workspace\\app2\\file2.json"};
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
