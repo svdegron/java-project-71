@@ -1,6 +1,5 @@
 package hexlet.code;
 
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,9 +7,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
-//import java.util.Set.;
+import java.util.Map;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Differ {
 
