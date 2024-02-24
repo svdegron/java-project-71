@@ -19,5 +19,8 @@ run-files:
 run-files-windows:
 	"./build/install/app/bin/app" "c:\idea-workspace\app2\file1.json" "c:\idea-workspace\app2\file2.json"
 
-run-files-error:
-	"./build/install/app/bin/app" "file1.json" "./build/install/app/bin/file2.json"
+run-files-error1:
+	"./build/install/app/bin/app" "file1.json" "file2.json"
+
+run-files-error2:
+	"./build/install/app/bin/app" "c:\idea-workspace\app2\file1.json" "file2.json"
