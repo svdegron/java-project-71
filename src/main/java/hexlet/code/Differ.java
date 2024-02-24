@@ -19,6 +19,14 @@ public class Differ {
         Path path1 = Paths.get(filepath1);
         Path path2 = Paths.get(filepath2);
 
+        if (!Files.exists(path1)) {
+            throw new IOException("Check that the file \"" + path1 + "\" exists and can be accessed");
+        }
+
+        if (!Files.exists(path2)) {
+            throw new IOException("Check that the file \"" + path2 + "\" exists and can be accessed");
+        }
+
         var content1 = Files.readString(path1);
         var content2 = Files.readString(path2);
 
@@ -26,7 +34,7 @@ public class Differ {
         var json1 = objectMapper.readValue(content1, new TypeReference<Map<String, Object>>(){});
         var json2 = objectMapper.readValue(content2, new TypeReference<Map<String, Object>>(){});
 
-        List<String> results = new LinkedList<>();
+        var results = new LinkedList<String>();
 
         Set<String> allKeys = new TreeSet<>(json1.keySet());
         allKeys.addAll(json2.keySet());
@@ -34,26 +42,29 @@ public class Differ {
         for (String key : allKeys) {
             if (json1.containsKey(key) && json1.containsKey(key)) {
                 if (json1.get(key).equals(json2.get(key))) {
-                    results.add(key + " " + json1.get(key));
+                    results.add("    " + key + " " + json1.get(key));
                 } else {
                     if (json1.get(key) != null) {
-                        results.add("- " + key + " " + json1.get(key));
+                        results.add("  - " + key + " " + json1.get(key));
                     }
 
                     if (json2.get(key) != null) {
-                        results.add("+ " + key + " " + json2.get(key));
+                        results.add("  + " + key + " " + json2.get(key));
                     }
                 }
             } else {
                 if (json1.get(key) != null) {
-                    results.add("- " + key + " " + json1.get(key));
+                    results.add("  - " + key + " " + json1.get(key));
                 }
 
                 if (json2.get(key) != null) {
-                    results.add("+ " + key + " " + json2.get(key));
+                    results.add("  + " + key + " " + json2.get(key));
                 }
             }
         }
+
+        results.addFirst("{");
+        results.addLast("}");
 
         return String.join("\n", results);
     }
