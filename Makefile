@@ -24,3 +24,5 @@ run-files-error1:
 
 run-files-error2:
 	"./build/install/app/bin/app" "c:\idea-workspace\app2\file1.json" "file2.json"
+
+.PHONY: build
