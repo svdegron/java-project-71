@@ -63,8 +63,12 @@ public class Differ {
             }
         }
 
-        results.addFirst("{");
-        results.addLast("}");
+        if (results.isEmpty()) {
+            results.add("Files are empty");
+        } else {
+            results.addFirst("{");
+            results.addLast("}");
+        }
 
         return String.join("\n", results);
     }
