@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.util.List;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeSet;
@@ -31,8 +30,8 @@ public class Differ {
         var content2 = Files.readString(path2);
 
         var objectMapper = new ObjectMapper();
-        var json1 = objectMapper.readValue(content1, new TypeReference<Map<String, Object>>(){});
-        var json2 = objectMapper.readValue(content2, new TypeReference<Map<String, Object>>(){});
+        var json1 = objectMapper.readValue(content1, new TypeReference<Map<String, Object>>() { });
+        var json2 = objectMapper.readValue(content2, new TypeReference<Map<String, Object>>() { });
 
         var results = new LinkedList<String>();
 
