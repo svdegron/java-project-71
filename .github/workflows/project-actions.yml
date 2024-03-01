@@ -2,7 +2,7 @@ name: Build project
 run-name: ${{ github.actor }} is testing actions 🍺
 on: [push]
 jobs:
-  Run-dist:
+  Build-task:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
