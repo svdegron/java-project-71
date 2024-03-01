@@ -1,5 +1,5 @@
 name: Build project
-run-name: ${{ github.actor }} is testing actions 🍺
+run-name: ${{ name }} by ${{ github.actor }} run build 🚀
 on: [push]
 jobs:
   Build-task:
