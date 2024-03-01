@@ -30,7 +30,7 @@ public class Differ {
         var content2 = Files.readString(path2);
 
         var objectMapper = new ObjectMapper();
-        var json1 = objectMapper.readValue(content1, new TypeReference<Map<String, Object>>() {});
+        var json1 = objectMapper.readValue(content1, new TypeReference<Map<String, Object>>() { });
         var json2 = objectMapper.readValue(content2, new TypeReference<Map<String, Object>>() { });
 
         var results = new LinkedList<String>();
