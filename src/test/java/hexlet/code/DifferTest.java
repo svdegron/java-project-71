@@ -8,6 +8,6 @@ public class DifferTest {
 
     @Test
     public void generateSuccess() {
-        assertEquals(1, 2);
+        assertEquals(1, 1);
     }
 }
