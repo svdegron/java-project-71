@@ -1,4 +1,4 @@
-name: Build project - ${{ github.run_id }}
+name: Build project
 run-name: Try ${{ github.run_number }}. Workflow «${{ github.workflow }}» by ${{ github.actor }} 🚀
 on: [push]
 jobs:
