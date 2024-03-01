@@ -1,5 +1,5 @@
 name: Build project
-run-name: ${{ github.name }} by ${{ github.actor }} run build 🚀
+run-name: ${{ github.workflow }} by ${{ github.actor }} run build 🚀
 on: [push]
 jobs:
   Build-task:
