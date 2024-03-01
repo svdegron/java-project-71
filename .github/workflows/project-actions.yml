@@ -1,0 +1,10 @@
+name: Build project
+run-name: ${{ github.actor }} is testing actions 🍺
+on: [push]
+jobs:
+  Run-dist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          make run-dist
