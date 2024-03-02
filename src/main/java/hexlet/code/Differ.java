@@ -41,23 +41,23 @@ public class Differ {
         for (String key : allKeys) {
             if (json1.containsKey(key) && json1.containsKey(key)) {
                 if (json1.get(key).equals(json2.get(key))) {
-                    results.add("    " + key + " " + json1.get(key));
+                    results.add("    " + key + ": " + json1.get(key));
                 } else {
                     if (json1.get(key) != null) {
-                        results.add("  - " + key + " " + json1.get(key));
+                        results.add("  - " + key + ": " + json1.get(key));
                     }
 
                     if (json2.get(key) != null) {
-                        results.add("  + " + key + " " + json2.get(key));
+                        results.add("  + " + key + ": " + json2.get(key));
                     }
                 }
             } else {
                 if (json1.get(key) != null) {
-                    results.add("  - " + key + " " + json1.get(key));
+                    results.add("  - " + key + ": " + json1.get(key));
                 }
 
                 if (json2.get(key) != null) {
-                    results.add("  + " + key + " " + json2.get(key));
+                    results.add("  + " + key + ": " + json2.get(key));
                 }
             }
         }
@@ -69,6 +69,10 @@ public class Differ {
             results.addLast("}");
         }
 
-        return String.join("\n", results);
+        // В зависимости от операционной системы
+        // переносы строк можут быть разных видов:
+        // LF - For a Unix/Linux/New Mac-based OS
+        // CRLF - on a Windows-based OS
+        return String.join(System.lineSeparator(), results);
     }
 }
