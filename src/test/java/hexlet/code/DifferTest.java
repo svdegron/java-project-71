@@ -12,40 +12,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DifferTest {
 
-    private final Path resourceDirectory = Paths.get("src", "test", "resources");
-    private static String correctResourceDirectory;
+    private static final Path RESOURCE_DIRECTORY = Paths.get("src", "test", "resources");
 
     // Количество файлов для тестирования
     private static final int JSON_FILES_COUNT = 3;
+
+    private static String correctResourceDirectory;
+    private static String absoluteDirectoryPath;
 
     @BeforeAll
     public static void beforeAll() {
         String[] pathPieces = {"src", "test", "resources"};
         correctResourceDirectory = String.join(File.separator, pathPieces);
+
+        absoluteDirectoryPath = RESOURCE_DIRECTORY.toFile().getAbsolutePath();
     }
 
     @Test
     public void checkResourceDirectory() {
-        String absolutePath = resourceDirectory.toFile().getAbsolutePath();
-
         // Здесь разница в один символ ("\" или "/" сложно сразу заметить), поэтому добавил сообщение
-        if (!absolutePath.endsWith(correctResourceDirectory)) {
+        if (!absoluteDirectoryPath.endsWith(correctResourceDirectory)) {
             System.out.println("[WARN] " + System.getProperty("os.name") + " is Your operating system"
                 + "\n[INFO] Check file separator");
         }
 
-        assertTrue(absolutePath.endsWith(correctResourceDirectory));
+        assertTrue(absoluteDirectoryPath.endsWith(correctResourceDirectory));
     }
 
     @Test
     public void checkTestFiles() {
         Map<Path, Boolean> existPath = new HashMap<>();
         Map<Path, Boolean> expected = new HashMap<>();
-        String absoluteDirectoryPath = resourceDirectory.toFile().getAbsolutePath();
 
         for (var iStep = 1; iStep <= JSON_FILES_COUNT; iStep++) {
             var fileName = "file" + iStep + ".json";
@@ -70,8 +72,6 @@ public class DifferTest {
         var resultFileName1 = "diff-1-to-2.txt";
         var resultFileName2 = "diff-2-to-1.txt";
 
-        String absoluteDirectoryPath = resourceDirectory.toFile().getAbsolutePath();
-
         var absolutePathResult1 = Paths.get(absoluteDirectoryPath, resultFileName1);
         var absolutePathResult2 = Paths.get(absoluteDirectoryPath, resultFileName2);
 
@@ -95,15 +95,21 @@ public class DifferTest {
         var fileName1 = "file1.json";
         var fileName2 = "file2.json";
 
-        var absoluteFilePath1 = Paths.get(absoluteDirectoryPath, fileName1).toString();
-        var absoluteFilePath2 = Paths.get(absoluteDirectoryPath, fileName2).toString();
+        var absoluteFilePath1 = Paths.get(absoluteDirectoryPath, fileName1);
+        var absoluteFilePath2 = Paths.get(absoluteDirectoryPath, fileName2);
+
+        assertTrue(Files.exists(absoluteFilePath1));
+        assertTrue(Files.exists(absoluteFilePath2));
 
         String actualDiffDirect;
         String actualDiffReverse;
 
         try {
-            actualDiffDirect = Differ.generate(absoluteFilePath1, absoluteFilePath2);
-            actualDiffReverse = Differ.generate(absoluteFilePath2, absoluteFilePath1);
+            var filepath1 = absoluteFilePath1.toString();
+            var filepath2 = absoluteFilePath2.toString();
+
+            actualDiffDirect = Differ.generate(filepath1, filepath2);
+            actualDiffReverse = Differ.generate(filepath2, filepath1);
         } catch (IOException e) {
             actualDiffDirect = e.getMessage();
             actualDiffReverse = e.getMessage();
@@ -112,6 +118,46 @@ public class DifferTest {
         // 1 сравниваем со 2
         assertEquals(expectedDiffDirect, actualDiffDirect);
         // в обратном порядке "+" и "-" меняются местами
+        assertEquals(expectedDiffReverse, actualDiffReverse);
+    }
+
+    @Test
+    public void generatFileMissing() {
+        var fileName1 = "this-second-File-is-Not-Exist.json";
+        var fileName2 = "this-First-File-is-Not-Exist.json";
+
+        var absoluteFilePath1 = Paths.get(absoluteDirectoryPath, fileName1);
+        var absoluteFilePath2 = Paths.get(absoluteDirectoryPath, fileName2);
+
+        // Наличие файлов с предполагаемыми результатами метода
+        assertFalse(Files.exists(absoluteFilePath1));
+        assertFalse(Files.exists(absoluteFilePath2));
+
+        String expectedDiffDirect = null;
+        String expectedDiffReverse = null;
+
+        String actualDiffDirect;
+        String actualDiffReverse;
+
+        var filepath1 = absoluteFilePath1.toString();
+        var filepath2 = absoluteFilePath2.toString();
+
+        try {
+            actualDiffDirect = Differ.generate(filepath1, filepath2);
+        } catch (IOException e) {
+            actualDiffDirect = e.getMessage();
+            expectedDiffDirect = e.getMessage();
+        }
+
+        try {
+            actualDiffReverse = Differ.generate(filepath2, filepath1);
+        } catch (IOException e) {
+            actualDiffReverse = e.getMessage();
+            expectedDiffReverse = e.getMessage();
+        }
+
+        // по аналогии с тестом, который проверяет корректный результат
+        assertEquals(expectedDiffDirect, actualDiffDirect);
         assertEquals(expectedDiffReverse, actualDiffReverse);
     }
 }
