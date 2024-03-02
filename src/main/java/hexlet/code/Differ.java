@@ -74,6 +74,6 @@ public class Differ {
         // LF - For a Unix/Linux/New Mac-based OS
         // CRLF - on a Windows-based OS
 //        return String.join(System.lineSeparator(), results);
-        return String.join("\n", results);
+        return String.join("\r\n", results);
     }
 }
