@@ -7,8 +7,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,6 +31,7 @@ public class DifferTest {
     public void checkDirectory() {
         String absolutePath = resourceDirectory.toFile().getAbsolutePath();
 
+        // Здесь разница в один символ ("\" или "/" сложно сразу определить), поэтому добавил сообщение
         if (!absolutePath.endsWith(correctResourceDirectory)) {
             System.out.println("[WARN] " + System.getProperty("os.name") + " is Your operating system"
                 + "\n[INFO] Check file separator");
@@ -41,20 +42,23 @@ public class DifferTest {
 
     @Test
     public void checkFiles() {
-        List<Boolean> existPath = new LinkedList<>();
-        List<Boolean> expectedList = new LinkedList<>();
+        Map<Path, Boolean> existPath = new HashMap<>();
+        Map<Path, Boolean> expected = new HashMap<>();
         String absoluteDirectoryPath = resourceDirectory.toFile().getAbsolutePath();
 
         for (var iStep = 1; iStep <= testFilesCount; iStep++) {
             var fileName = "file" + iStep + ".json";
-            var filePath = Paths.get(absoluteDirectoryPath, fileName);
-            var isExist = Files.exists(filePath);
+            var absoluteFilePath = Paths.get(absoluteDirectoryPath, fileName);
+            var isExist = Files.exists(absoluteFilePath);
 
-            existPath.add(isExist);
-            expectedList.add(true);
+            existPath.put(absoluteFilePath, isExist);
+            expected.put(absoluteFilePath, true);
         }
 
-        assertEquals(expectedList, existPath);
+        // специально переделал на Map
+        // сообщения нет, в Expected/Actual должно быть видно
+
+        assertEquals(expected, existPath);
     }
 
     @Test
