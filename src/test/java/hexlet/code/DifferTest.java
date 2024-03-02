@@ -31,7 +31,7 @@ public class DifferTest {
     public void checkDirectory() {
         String absolutePath = resourceDirectory.toFile().getAbsolutePath();
 
-        // Здесь разница в один символ ("\" или "/" сложно сразу определить), поэтому добавил сообщение
+        // Здесь разница в один символ ("\" или "/" сложно сразу заметить), поэтому добавил сообщение
         if (!absolutePath.endsWith(correctResourceDirectory)) {
             System.out.println("[WARN] " + System.getProperty("os.name") + " is Your operating system"
                 + "\n[INFO] Check file separator");
