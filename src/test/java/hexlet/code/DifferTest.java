@@ -15,15 +15,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DifferTest {
 
-    private final Path resourceDirectory = Paths.get("src","test", "resources");
+    private final Path resourceDirectory = Paths.get("src", "test", "resources");
     private static String correctResourceDirectory;
 
     // Количество файлов для тестирования
-    private static final int testFilesCount = 3;
+    private static final int TEST_FILES_COUNT = 3;
 
     @BeforeAll
     public static void beforeAll() {
-        String[] pathPieces = { "src", "test", "resources" };
+        String[] pathPieces = {"src", "test", "resources"};
         correctResourceDirectory = String.join(File.separator, pathPieces);
     }
 
@@ -46,7 +46,7 @@ public class DifferTest {
         Map<Path, Boolean> expected = new HashMap<>();
         String absoluteDirectoryPath = resourceDirectory.toFile().getAbsolutePath();
 
-        for (var iStep = 1; iStep <= testFilesCount; iStep++) {
+        for (var iStep = 1; iStep <= TEST_FILES_COUNT; iStep++) {
             var fileName = "file" + iStep + ".json";
             var absoluteFilePath = Paths.get(absoluteDirectoryPath, fileName);
             var isExist = Files.exists(absoluteFilePath);
