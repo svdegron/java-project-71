@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,6 +64,54 @@ public class DifferTest {
 
     @Test
     public void generateSuccess() {
+        // Проверить количество файлов (забыл, удалили, не вложили…)
         assertEquals(3, JSON_FILES_COUNT);
+
+        var resultFileName1 = "diff-1-to-2.txt";
+        var resultFileName2 = "diff-2-to-1.txt";
+
+        String absoluteDirectoryPath = resourceDirectory.toFile().getAbsolutePath();
+
+        var absolutePathResult1 = Paths.get(absoluteDirectoryPath, resultFileName1);
+        var absolutePathResult2 = Paths.get(absoluteDirectoryPath, resultFileName2);
+
+        // Наличие файлов с предполагаемыми результатами метода
+        assertTrue(Files.exists(absolutePathResult1));
+        assertTrue(Files.exists(absolutePathResult2));
+
+        String expectedDiffDirect;
+        String expectedDiffReverse;
+
+        // Получаем ожидаемые результаты
+        try {
+            expectedDiffDirect = Files.readString(absolutePathResult1);
+            expectedDiffReverse = Files.readString(absolutePathResult2);
+        } catch (IOException e) {
+            expectedDiffDirect = e.getMessage();
+            expectedDiffReverse = e.getMessage();
+        }
+
+        // Проверяем работу метода на файлах
+        var fileName1 = "file1.json";
+        var fileName2 = "file2.json";
+
+        var absoluteFilePath1 = Paths.get(absoluteDirectoryPath, fileName1).toString();
+        var absoluteFilePath2 = Paths.get(absoluteDirectoryPath, fileName2).toString();
+
+        String actualDiffDirect;
+        String actualDiffReverse;
+
+        try {
+            actualDiffDirect = Differ.generate(absoluteFilePath1, absoluteFilePath2);
+            actualDiffReverse = Differ.generate(absoluteFilePath2, absoluteFilePath1);
+        } catch (IOException e) {
+            actualDiffDirect = e.getMessage();
+            actualDiffReverse = e.getMessage();
+        }
+
+        // 1 сравниваем со 2
+        assertEquals(expectedDiffDirect, actualDiffDirect);
+        // в обратном порядке "+" и "-" меняются местами
+        assertEquals(expectedDiffReverse, actualDiffReverse);
     }
 }
