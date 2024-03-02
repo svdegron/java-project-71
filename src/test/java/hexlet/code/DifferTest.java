@@ -19,7 +19,7 @@ public class DifferTest {
     private static String correctResourceDirectory;
 
     // Количество файлов для тестирования
-    private static final int TEST_FILES_COUNT = 3;
+    private static final int JSON_FILES_COUNT = 3;
 
     @BeforeAll
     public static void beforeAll() {
@@ -28,7 +28,7 @@ public class DifferTest {
     }
 
     @Test
-    public void checkDirectory() {
+    public void checkResourceDirectory() {
         String absolutePath = resourceDirectory.toFile().getAbsolutePath();
 
         // Здесь разница в один символ ("\" или "/" сложно сразу заметить), поэтому добавил сообщение
@@ -41,12 +41,12 @@ public class DifferTest {
     }
 
     @Test
-    public void checkFiles() {
+    public void checkTestFiles() {
         Map<Path, Boolean> existPath = new HashMap<>();
         Map<Path, Boolean> expected = new HashMap<>();
         String absoluteDirectoryPath = resourceDirectory.toFile().getAbsolutePath();
 
-        for (var iStep = 1; iStep <= TEST_FILES_COUNT; iStep++) {
+        for (var iStep = 1; iStep <= JSON_FILES_COUNT; iStep++) {
             var fileName = "file" + iStep + ".json";
             var absoluteFilePath = Paths.get(absoluteDirectoryPath, fileName);
             var isExist = Files.exists(absoluteFilePath);
@@ -63,7 +63,6 @@ public class DifferTest {
 
     @Test
     public void generateSuccess() {
-        var temp = 1;
-        assertEquals(1, temp);
+        assertEquals(3, JSON_FILES_COUNT);
     }
 }
