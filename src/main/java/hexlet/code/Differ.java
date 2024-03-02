@@ -73,7 +73,6 @@ public class Differ {
         // переносы строк можут быть разных видов:
         // LF - For a Unix/Linux/New Mac-based OS
         // CRLF - on a Windows-based OS
-//        return String.join(System.lineSeparator(), results);
-        return String.join("\r\n", results);
+        return String.join(System.lineSeparator(), results);
     }
 }
