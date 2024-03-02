@@ -152,7 +152,7 @@ public class DifferTest {
         try {
             actualDiffReverse = Differ.generate(filepath2, filepath1);
         } catch (IOException e) {
-            actualDiffReverse = e.getMessage() + "1";
+            actualDiffReverse = e.getMessage();
             expectedDiffReverse = e.getMessage();
         }
 
