@@ -5,6 +5,7 @@
 * [![Build project](https://github.com/svdegron/java-project-71/actions/workflows/project-actions.yml/badge.svg)](https://github.com/svdegron/java-project-71/actions/workflows/project-actions.yml)
 * [![Maintainability](https://api.codeclimate.com/v1/badges/93fafcecf4df421454b5/maintainability)](https://codeclimate.com/github/svdegron/java-project-71/maintainability)
 * [![Test Coverage](https://api.codeclimate.com/v1/badges/93fafcecf4df421454b5/test_coverage)](https://codeclimate.com/github/svdegron/java-project-71/test_coverage)
+* <a href="https://codeclimate.com/github/svdegron/java-project-71/test_coverage"><img src="https://api.codeclimate.com/v1/badges/93fafcecf4df421454b5/test_coverage" /></a>
 
 For examples:
 --------------
