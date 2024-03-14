@@ -18,3 +18,10 @@ For examples:
 ./app file1.json file2.json
 ```
 [![asciicast](https://asciinema.org/a/ANVRsyGS1d4qxA7GXCI8aaLGs.svg)](https://asciinema.org/a/ANVRsyGS1d4qxA7GXCI8aaLGs)
+
+### Add compare yaml-files
+```bash
+# create the files and run the command
+./app file4.yml file5.yml
+```
+[![asciicast](https://asciinema.org/a/7hF59S5neURlm9F7QjUD6kSoj.svg)](https://asciinema.org/a/7hF59S5neURlm9F7QjUD6kSoj)
