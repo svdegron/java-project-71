@@ -19,6 +19,9 @@ run-files:
 run-files-windows:
 	"./build/install/app/bin/app" "c:\idea-workspace\app2\file1.json" "c:\idea-workspace\app2\file2.json"
 
+run-files-windows1:
+	"./build/install/app/bin/app" "c:\idea-workspace\app2\file4.json" "c:\idea-workspace\app2\file5.json"
+
 run-files-yaml:
 	"./build/install/app/bin/app" "c:\idea-workspace\app2\file4.yml" "c:\idea-workspace\app2\file5.yml"
 
