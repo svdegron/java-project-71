@@ -21,13 +21,10 @@ public class Parser {
 
         var contentMap = objectMapper.readValue(content, Map.class);
 
-        Map resultMap;
-
-        switch (App.format) {
-            case "stylish": resultMap = convertObjects(contentMap);
-            default: resultMap = contentMap;
+        if ("stylish".equals(App.format)) {
+            return convertObjects(contentMap);
+        } else {
+            return contentMap;
         }
-
-        return resultMap;
     }
 }
