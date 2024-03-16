@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Parser {
@@ -17,6 +18,23 @@ public class Parser {
 
         var objectMapper = new YAMLMapper();
 
-        return objectMapper.readValue(content, Map.class);
+        var contentMap = objectMapper.readValue(content, Map.class);
+
+        for (Object key : contentMap.keySet()) {
+            var getKey = contentMap.get(key);
+
+            if (contentMap.get(key) != null) {
+                String cls = contentMap.get(key).getClass().toString();
+
+                if (cls.indexOf("ArrayList") > 0 || cls.indexOf("LinkedHashMap") > 0) {
+                    var str = contentMap.get(key).toString();
+                    contentMap.replace(key, str);
+                }
+            } else {
+                contentMap.replace(key, "null");
+            }
+        }
+
+        return contentMap;
     }
 }
