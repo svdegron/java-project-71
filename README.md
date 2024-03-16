@@ -25,3 +25,11 @@ For examples:
 ./app file4.yml file5.yml
 ```
 [![asciicast](https://asciinema.org/a/7hF59S5neURlm9F7QjUD6kSoj.svg)](https://asciinema.org/a/7hF59S5neURlm9F7QjUD6kSoj)
+
+### Add check complex value
+```bash
+#
+# create the files and run the command
+./app file1.yml file2.yml
+[![asciicast](https://asciinema.org/a/pkC3ruP7xOs3Y4jRqcHTaU5AF.svg)](https://asciinema.org/a/pkC3ruP7xOs3Y4jRqcHTaU5AF)
+```
