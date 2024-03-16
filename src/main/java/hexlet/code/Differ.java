@@ -8,6 +8,9 @@ import java.util.TreeSet;
 
 public class Differ {
 
+    private static final int DIFFER_COUNT = 2;
+    private static final int MATCH_COUNT = DIFFER_COUNT + 2;
+
     public static String generate(String filepath1, String filepath2) throws IOException {
         var fileMap1 = Parser.getMap(Paths.get(filepath1));
         var fileMap2 = Parser.getMap(Paths.get(filepath2));
@@ -18,25 +21,28 @@ public class Differ {
         allKeys.addAll(fileMap2.keySet());
 
         for (String key : allKeys) {
+            var entryValue1 = fileMap1.get(key);
+            var entryValue2 = fileMap2.get(key);
+
             if (fileMap1.containsKey(key) && fileMap1.containsKey(key)) {
-                if (fileMap1.get(key).equals(fileMap2.get(key))) {
-                    results.add("    " + key + ": " + fileMap1.get(key));
+                if (entryValue1.equals(entryValue2)) {
+                    results.add(" ".repeat(MATCH_COUNT) + key + ": " + entryValue1);
                 } else {
-                    if (fileMap1.get(key) != null) {
-                        results.add("  - " + key + ": " + fileMap1.get(key));
+                    if (entryValue1 != null) {
+                        results.add(" ".repeat(DIFFER_COUNT) + "- " + key + ": " + entryValue1);
                     }
 
-                    if (fileMap2.get(key) != null) {
-                        results.add("  + " + key + ": " + fileMap2.get(key));
+                    if (entryValue2 != null) {
+                        results.add(" ".repeat(DIFFER_COUNT) + "+ " + key + ": " + entryValue2);
                     }
                 }
             } else {
-                if (fileMap1.get(key) != null) {
-                    results.add("  - " + key + ": " + fileMap1.get(key));
+                if (entryValue1 != null) {
+                    results.add(" ".repeat(DIFFER_COUNT) + "- " + key + ": " + entryValue1);
                 }
 
-                if (fileMap2.get(key) != null) {
-                    results.add("  + " + key + ": " + fileMap2.get(key));
+                if (entryValue2 != null) {
+                    results.add(" ".repeat(DIFFER_COUNT) + "+ " + key + ": " + entryValue2);
                 }
             }
         }
