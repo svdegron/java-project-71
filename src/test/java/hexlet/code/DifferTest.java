@@ -122,7 +122,7 @@ public class DifferTest {
     }
 
     @Test
-    public void generatFileMissing() {
+    public void generateFileMissing() {
         var fileName1 = "this-second-File-is-Not-Exist.json";
         var fileName2 = "this-First-File-is-Not-Exist.json";
 
