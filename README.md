@@ -28,7 +28,6 @@ For examples:
 
 ### Add check complex value
 ```bash
-#
 # create the files and run the command
 ./app file1.yml file2.yml
 [![asciicast](https://asciinema.org/a/pkC3ruP7xOs3Y4jRqcHTaU5AF.svg)](https://asciinema.org/a/pkC3ruP7xOs3Y4jRqcHTaU5AF)
