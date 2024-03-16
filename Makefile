@@ -25,6 +25,9 @@ run-files-windows1:
 run-files-yaml:
 	"./build/install/app/bin/app" "c:\idea-workspace\app2\file4.yml" "c:\idea-workspace\app2\file5.yml"
 
+run-files-yaml1:
+	"./build/install/app/bin/app" "c:\idea-workspace\app2\file6.yml" "c:\idea-workspace\app2\file7.yml"
+
 run-files-error1:
 	"./build/install/app/bin/app" "file1.json" "file2.json"
 
