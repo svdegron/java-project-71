@@ -21,13 +21,13 @@ public class Parser {
         var contentMap = objectMapper.readValue(content, Map.class);
 
         for (Object key : contentMap.keySet()) {
-            var getKey = contentMap.get(key);
+            var entryValue = contentMap.get(key);
 
-            if (contentMap.get(key) != null) {
-                String cls = contentMap.get(key).getClass().toString();
+            if (entryValue != null) {
+                String cls = entryValue.getClass().toString();
 
                 if (cls.indexOf("ArrayList") > 0 || cls.indexOf("LinkedHashMap") > 0) {
-                    var str = contentMap.get(key).toString();
+                    var str = entryValue.toString();
                     contentMap.replace(key, str);
                 }
             } else {
