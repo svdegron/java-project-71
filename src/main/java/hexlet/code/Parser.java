@@ -24,8 +24,8 @@ public class Parser {
         Map resultMap;
 
         switch (App.format) {
-            case "stylish" -> resultMap = convertObjects(contentMap);
-            default -> resultMap = contentMap;
+            case "stylish": resultMap = convertObjects(contentMap);
+            default: resultMap = contentMap;
         }
 
         return resultMap;
