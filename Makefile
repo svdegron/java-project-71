@@ -35,7 +35,7 @@ run-files-yaml1:
 	"./build/install/app/bin/app" "c:\idea-workspace\app2\app\src\main\resources\file3.yml" "c:\idea-workspace\app2\app\src\main\resources\file4.yml"
 
 run-files-yaml2:
-	"./build/install/app/bin/app" -f plain "c:\idea-workspace\app2\app\src\main\resources\file3.yml" "c:\idea-workspace\app2\app\src\main\resources\file4.yml"
+	"./build/install/app/bin/app" -f plain "./src/main/resources/file3.yml" "./src/main/resources/file4.yml"
 
 run-files-error1:
 	"./build/install/app/bin/app" "file1.json" "file2.json"

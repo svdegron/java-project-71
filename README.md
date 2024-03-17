@@ -32,3 +32,10 @@ For examples:
 ./app file1.yml file2.yml
 ```
 [![asciicast](https://asciinema.org/a/pkC3ruP7xOs3Y4jRqcHTaU5AF.svg)](https://asciinema.org/a/pkC3ruP7xOs3Y4jRqcHTaU5AF)
+
+### Add plain format
+```bash
+# create the files with arrays or objects and run the command
+./app -f plain file3.yml file4.yml
+```
+[![asciicast](https://asciinema.org/a/TaOdqj7LpkDYM8GAeJIDh5NC3.svg)](https://asciinema.org/a/TaOdqj7LpkDYM8GAeJIDh5NC3)
