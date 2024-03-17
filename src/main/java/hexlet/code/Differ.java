@@ -2,62 +2,63 @@ package hexlet.code;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
+import static hexlet.code.Formatter.addItem;
 
 public class Differ {
 
-    private static final int DIFFER_COUNT = 2;
-    private static final int MATCH_COUNT = DIFFER_COUNT + 2;
-
-    public static String generate(String filepath1, String filepath2) throws IOException {
+    public static String generate(String filepath1, String filepath2, String format) throws IOException {
         var fileMap1 = Parser.getMap(Paths.get(filepath1));
         var fileMap2 = Parser.getMap(Paths.get(filepath2));
 
-        var results = new LinkedList<String>();
+        var results = new TreeMap<String, String>();
 
-        Set<String> allKeys = new TreeSet<>(fileMap1.keySet());
-        allKeys.addAll(fileMap2.keySet());
+        for (var key : fileMap1.keySet()) {
+            var entry1 = fileMap1.get(key);
+            String result;
 
-        for (String key : allKeys) {
-            var entryValue1 = fileMap1.get(key);
-            var entryValue2 = fileMap2.get(key);
+            if (fileMap2.containsKey(key)) {
+                var entry2 = fileMap2.get(key);
 
-            if (fileMap1.containsKey(key) && fileMap1.containsKey(key)) {
-                if (entryValue1.equals(entryValue2)) {
-                    results.add(" ".repeat(MATCH_COUNT) + key + ": " + entryValue1);
+                if (entry1.equals(entry2)) {
+                    result = addItem(format, Formatter.EQUAL, key, entry1);
+                    results.put(key, result);
                 } else {
-                    if (entryValue1 != null) {
-                        results.add(" ".repeat(DIFFER_COUNT) + "- " + key + ": " + entryValue1);
-                    }
-
-                    if (entryValue2 != null) {
-                        results.add(" ".repeat(DIFFER_COUNT) + "+ " + key + ": " + entryValue2);
-                    }
+                    result = addItem(format, Formatter.EDIT, key, entry1, entry2);
+                    results.put(key, result);
                 }
+
+                fileMap2.remove(key);
             } else {
-                if (entryValue1 != null) {
-                    results.add(" ".repeat(DIFFER_COUNT) + "- " + key + ": " + entryValue1);
-                }
-
-                if (entryValue2 != null) {
-                    results.add(" ".repeat(DIFFER_COUNT) + "+ " + key + ": " + entryValue2);
-                }
+                result = addItem(format, Formatter.DELETE, key, entry1);
+                results.put(key, result);
             }
         }
 
-        if (results.isEmpty()) {
-            results.add("Files are empty");
-        } else {
-            results.addFirst("{");
-            results.addLast("}");
+        for (var key : fileMap2.keySet()) {
+            var result = addItem(format, Formatter.ADD, key, fileMap2.get(key));
+            results.put(key, result);
         }
+
+        if (results.isEmpty()) {
+            return "Files are empty";
+        }
+
+        var result = results.entrySet().stream()
+            .map(Map.Entry::getValue)
+            .filter(line -> line.length() > 0)
+            .collect(Collectors.joining(System.lineSeparator()));
 
         // В зависимости от операционной системы
         // переносы строк можут быть разных видов:
         // LF - For a Unix/Linux/New Mac-based OS
         // CRLF - on a Windows-based OS
-        return String.join(System.lineSeparator(), results);
+        return String.join(System.lineSeparator(), "{", result, "}");
     }
+
 }
