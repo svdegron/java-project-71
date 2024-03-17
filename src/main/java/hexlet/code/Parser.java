@@ -5,9 +5,8 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Map;
-
-import static hexlet.code.Formatter.convertObjects;
 
 public class Parser {
     public static Map<String, Object> getMap(Path path) throws IOException {
@@ -21,10 +20,29 @@ public class Parser {
 
         var contentMap = objectMapper.readValue(content, Map.class);
 
-        if ("stylish".equals(App.format)) {
-            return convertObjects(contentMap);
-        } else {
-            return contentMap;
+        return convertObjects(contentMap);
+    }
+
+    public static Map<String, Object> convertObjects(Map<String, Object> items) {
+        var convertItems = new HashMap<String, Object>();
+
+        for (String key : items.keySet()) {
+            var entryValue = items.get(key);
+
+            if (entryValue != null) {
+                String cls = entryValue.getClass().toString();
+
+                if (cls.indexOf("ArrayList") > 0 || cls.indexOf("LinkedHashMap") > 0) {
+                    var str = entryValue.toString();
+                    convertItems.put(key, str);
+                } else {
+                    convertItems.put(key, entryValue);
+                }
+            } else {
+                convertItems.put(key, "null");
+            }
         }
+
+        return convertItems;
     }
 }
