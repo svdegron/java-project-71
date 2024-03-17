@@ -12,8 +12,6 @@ import static java.util.Arrays.stream;
 public class Json {
 
     public static String toJson(LinkedHashMap<String, List<Object>> map) throws JsonProcessingException {
-        System.out.println(map);
-
         var hm = new HashMap<String, HashMap<String, Object>>();
 
         for (var entries : map.entrySet()) {

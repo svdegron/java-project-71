@@ -23,12 +23,13 @@ public class Formatter {
         if ("plain".equals(format)) {
             return toPlain(map);
         } else if ("json".equals(format)) {
+            String result = null;
             try {
-                toJson(map);
+                result = toJson(map);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                result = e.getMessage();
             }
-            return "toJson(map)";
+            return result;
         } else {
             return toStylish(map);
         }
