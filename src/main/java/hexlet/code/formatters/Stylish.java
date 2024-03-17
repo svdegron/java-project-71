@@ -21,8 +21,7 @@ public class Stylish {
         // переносы строк можут быть разных видов:
         // LF - For a Unix/Linux/New Mac-based OS
         // CRLF - on a Windows-based OS
-
-        String result = map.keySet().stream()
+        return map.keySet().stream()
             .sorted()
             .map(key -> {
                 var list = map.get(key);
@@ -42,7 +41,5 @@ public class Stylish {
             })
             .collect(Collectors.joining(System.lineSeparator(), "{" + System.lineSeparator(),
                 System.lineSeparator() + "}"));
-
-        return result;
     }
 }

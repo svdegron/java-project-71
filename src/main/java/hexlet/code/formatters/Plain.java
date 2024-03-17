@@ -22,7 +22,7 @@ public class Plain {
     }
 
     public static String toPlain(Map<String, List<String>> map) {
-        String result = map.keySet().stream()
+        return map.keySet().stream()
             .sorted()
             .filter(key -> {
                 var list = map.get(key);
@@ -51,7 +51,5 @@ public class Plain {
                 }
             })
             .collect(Collectors.joining(System.lineSeparator()));
-
-        return result;
     }
 }
