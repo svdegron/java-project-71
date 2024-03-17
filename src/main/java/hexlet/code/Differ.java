@@ -25,16 +25,16 @@ public class Differ {
     }
 
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
-        var fileMap1 = Parser.getMap(Paths.get(filepath1));
-        var fileMap2 = Parser.getMap(Paths.get(filepath2));
+        var firstMap = Parser.getMap(Paths.get(filepath1));
+        var secondMap = Parser.getMap(Paths.get(filepath2));
 
         var results = new LinkedHashMap<String, List<String>>();
 
-        for (var key : fileMap1.keySet()) {
-            var entry1 = fileMap1.get(key);
+        for (var key : firstMap.keySet()) {
+            var entry1 = firstMap.get(key);
 
-            if (fileMap2.containsKey(key)) {
-                var entry2 = fileMap2.get(key);
+            if (secondMap.containsKey(key)) {
+                var entry2 = secondMap.get(key);
 
                 if (entry1.equals(entry2)) {
                     results.put(key, addResult(Formatter.EQUAL, entry1));
@@ -42,14 +42,14 @@ public class Differ {
                     results.put(key, addResult(Formatter.EDIT, entry1, entry2));
                 }
 
-                fileMap2.remove(key);
+                secondMap.remove(key);
             } else {
                 results.put(key, addResult(Formatter.DELETE, entry1));
             }
         }
 
-        for (var key : fileMap2.keySet()) {
-            results.put(key, addResult(Formatter.ADD, fileMap2.get(key)));
+        for (var key : secondMap.keySet()) {
+            results.put(key, addResult(Formatter.ADD, secondMap.get(key)));
         }
 
         if (results.isEmpty()) {
