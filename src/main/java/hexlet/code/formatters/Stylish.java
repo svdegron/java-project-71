@@ -29,20 +29,15 @@ public class Stylish {
                 var action = list.get(ACTION);
                 var firstValue = list.get(FIRST_VALUE);
 
-                switch (action) {
-                    case DELETE -> {
-                        return  " ".repeat(DIFFER_COUNT) + "- " + key + ": " + firstValue;
-                    }
-                    case ADD -> {
-                        return  " ".repeat(DIFFER_COUNT) + "+ " + key + ": " + firstValue;
-                    }
-                    case EDIT -> {
-                        return  " ".repeat(DIFFER_COUNT) + "- " + key + ": " + firstValue + System.lineSeparator()
-                            + " ".repeat(DIFFER_COUNT) + "+ " + key + ": " + list.get(SECOND_VALUE);
-                    }
-                    default -> {
-                        return " ".repeat(MATCH_COUNT) + key + ": " + firstValue;
-                    }
+                if (action.equals(DELETE)) {
+                    return  " ".repeat(DIFFER_COUNT) + "- " + key + ": " + firstValue;
+                } else if (action.equals(ADD)) {
+                    return  " ".repeat(DIFFER_COUNT) + "+ " + key + ": " + firstValue;
+                } else if (action.equals(EDIT)) {
+                    return  " ".repeat(DIFFER_COUNT) + "- " + key + ": " + firstValue + System.lineSeparator()
+                        + " ".repeat(DIFFER_COUNT) + "+ " + key + ": " + list.get(SECOND_VALUE);
+                } else {
+                    return " ".repeat(MATCH_COUNT) + key + ": " + firstValue;
                 }
             })
             .collect(Collectors.joining(System.lineSeparator(), "{" + System.lineSeparator(),

@@ -42,16 +42,12 @@ public class Plain {
                     secondValue = convertValue(list.get(SECOND_VALUE));
                 }
 
-                switch (action) {
-                    case ADD -> {
-                        return "Property '" + key + "' was added with value: " + firstValue;
-                    }
-                    case EDIT -> {
-                        return "Property '" + key + "' was updated. From " + firstValue + " to " + secondValue;
-                    }
-                    default -> {
-                        return  "Property '" + key + "' was removed";
-                    }
+                if (action.equals(ADD)) {
+                    return "Property '" + key + "' was added with value: " + firstValue;
+                } else if (action.equals(EDIT)) {
+                    return "Property '" + key + "' was updated. From " + firstValue + " to " + secondValue;
+                } else {
+                    return  "Property '" + key + "' was removed";
                 }
             })
             .collect(Collectors.joining(System.lineSeparator()));
