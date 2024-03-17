@@ -33,21 +33,21 @@ public class Plain {
             .map(key -> {
                 var list = map.get(key);
                 var action = list.get(ACTION);
-                var first_value = list.get(FIRST_VALUE);
-                String second_value = null;
+                var firstValue = list.get(FIRST_VALUE);
+                String secondValue = null;
 
-                first_value = convertValue((String) first_value);
+                firstValue = convertValue((String) firstValue);
 
                 if (list.size() > SECOND_VALUE) {
-                    second_value = convertValue(list.get(SECOND_VALUE));
+                    secondValue = convertValue(list.get(SECOND_VALUE));
                 }
 
                 switch (action) {
                     case ADD -> {
-                        return "Property '" + key + "' was added with value: " + first_value;
+                        return "Property '" + key + "' was added with value: " + firstValue;
                     }
                     case EDIT -> {
-                        return "Property '" + key + "' was updated. From " + first_value + " to " + second_value;
+                        return "Property '" + key + "' was updated. From " + firstValue + " to " + secondValue;
                     }
                     default -> {
                         return  "Property '" + key + "' was removed";
