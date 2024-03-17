@@ -20,7 +20,7 @@ public class DifferTest {
     private static final Path RESOURCE_DIRECTORY = Paths.get("src", "test", "resources");
 
     // Количество файлов для тестирования
-    private static final int JSON_FILES_COUNT = 3;
+    private static final int JSON_FILES_COUNT = 4;
 
     private static String correctResourceDirectory;
     private static String absoluteDirectoryPath;
@@ -45,7 +45,7 @@ public class DifferTest {
     }
 
     @Test
-    public void checkTestFiles() {
+    public void checkJsonFiles() {
         Map<Path, Boolean> existPath = new HashMap<>();
         Map<Path, Boolean> expected = new HashMap<>();
 
@@ -59,7 +59,24 @@ public class DifferTest {
         }
 
         // специально переделал на Map
-        // сообщения нет, в Expected/Actual должно быть видно
+        // чтобы отображались пути к файлам в Expected/Actual
+
+        assertEquals(expected, existPath);
+    }
+
+    @Test
+    public void checkYamlFiles() {
+        Map<Path, Boolean> existPath = new HashMap<>();
+        Map<Path, Boolean> expected = new HashMap<>();
+
+        for (var iStep = 1; iStep <= JSON_FILES_COUNT; iStep++) {
+            var fileName = "file" + iStep + ".yml";
+            var absoluteFilePath = Paths.get(absoluteDirectoryPath, fileName);
+            var isExist = Files.exists(absoluteFilePath);
+
+            existPath.put(absoluteFilePath, isExist);
+            expected.put(absoluteFilePath, true);
+        }
 
         assertEquals(expected, existPath);
     }
@@ -67,13 +84,10 @@ public class DifferTest {
     @Test
     public void generateSuccess() {
         // Проверить количество файлов (забыл, удалили, не вложили…)
-        assertEquals(3, JSON_FILES_COUNT);
+        assertTrue(JSON_FILES_COUNT == 4);
 
-        var resultFileName1 = "diff-1-to-2.txt";
-        var resultFileName2 = "diff-2-to-1.txt";
-
-        var absolutePathResult1 = Paths.get(absoluteDirectoryPath, resultFileName1);
-        var absolutePathResult2 = Paths.get(absoluteDirectoryPath, resultFileName2);
+        var absolutePathResult1 = Paths.get(absoluteDirectoryPath, "diff-stylish-1-to-2.txt");
+        var absolutePathResult2 = Paths.get(absoluteDirectoryPath, "diff-stylish-2-to-1.txt");
 
         // Наличие файлов с предполагаемыми результатами метода
         assertTrue(Files.exists(absolutePathResult1));
