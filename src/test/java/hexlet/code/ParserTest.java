@@ -41,7 +41,7 @@ public class ParserTest {
         String expectedMessage = null;
 
         Map<String, Object> actualMap = null;
-        Map<String, Object> expectedMap = new HashMap<String, Object>();
+        var expectedMap = new HashMap<String, Object>();
 
         expectedMap.put("timeout", 20);
         expectedMap.put("verbose", true);

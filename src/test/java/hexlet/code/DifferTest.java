@@ -108,8 +108,8 @@ public class DifferTest {
             var filepath1 = absoluteFilePath1.toString();
             var filepath2 = absoluteFilePath2.toString();
 
-            actualDiffDirect = Differ.generate(filepath1, filepath2);
-            actualDiffReverse = Differ.generate(filepath2, filepath1);
+            actualDiffDirect = Differ.generate(filepath1, filepath2, "stylish");
+            actualDiffReverse = Differ.generate(filepath2, filepath1, "stylish");
         } catch (IOException e) {
             actualDiffDirect = e.getMessage();
             actualDiffReverse = e.getMessage();
@@ -143,14 +143,14 @@ public class DifferTest {
         var filepath2 = absoluteFilePath2.toString();
 
         try {
-            actualDiffDirect = Differ.generate(filepath1, filepath2);
+            actualDiffDirect = Differ.generate(filepath1, filepath2, "stylish");
         } catch (IOException e) {
             actualDiffDirect = e.getMessage();
             expectedDiffDirect = e.getMessage();
         }
 
         try {
-            actualDiffReverse = Differ.generate(filepath2, filepath1);
+            actualDiffReverse = Differ.generate(filepath2, filepath1, "stylish");
         } catch (IOException e) {
             actualDiffReverse = e.getMessage();
             expectedDiffReverse = e.getMessage();
