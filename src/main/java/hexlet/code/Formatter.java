@@ -3,6 +3,7 @@ package hexlet.code;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import static hexlet.code.formatters.Json.toJson;
 import static hexlet.code.formatters.Plain.toPlain;
 import static hexlet.code.formatters.Stylish.toStylish;
 
@@ -21,9 +22,11 @@ public class Formatter {
 
         if ("plain".equals(format)) {
             return toPlain(map);
+        } else if ("json".equals(format)) {
+            return toJson(map);
+        } else {
+            return toStylish(map);
         }
-
-        return toStylish(map);
     }
 
 }
