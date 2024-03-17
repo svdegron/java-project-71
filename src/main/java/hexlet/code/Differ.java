@@ -8,17 +8,17 @@ import java.util.List;
 
 public class Differ {
 
-    private static List<String> addResult(String action, Object value) {
+    private static List<Object> addResult(Object action, Object value) {
         return addResult(action, value, "");
     }
 
-    private static List<String> addResult(String action, Object value1, Object value2) {
-        var items = new ArrayList<String>();
+    private static List<Object> addResult(Object action, Object value1, Object value2) {
+        var items = new ArrayList<>();
         items.add(action);
-        items.add(value1.toString());
+        items.add(value1);
 
         if (!"".equals(value2)) {
-            items.add(value2.toString());
+            items.add(value2);
         }
 
         return items;
@@ -28,7 +28,7 @@ public class Differ {
         var firstMap = Parser.getMap(Paths.get(filepath1));
         var secondMap = Parser.getMap(Paths.get(filepath2));
 
-        var results = new LinkedHashMap<String, List<String>>();
+        var results = new LinkedHashMap<String, List<Object>>();
 
         for (var key : firstMap.keySet()) {
             var entry1 = firstMap.get(key);

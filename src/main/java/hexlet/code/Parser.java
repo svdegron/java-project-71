@@ -30,9 +30,9 @@ public class Parser {
             var entryValue = entries.getValue();
 
             if (entryValue != null) {
-                String cls = entryValue.getClass().toString();
+                String simpleName = entryValue.getClass().getSimpleName();
 
-                if (cls.indexOf("ArrayList") > 0 || cls.indexOf("LinkedHashMap") > 0) {
+                if ("ArrayList".equals(simpleName) || "LinkedHashMap".equals(simpleName)) {
                     var str = entryValue.toString();
                     convertItems.put(entries.getKey(), str);
                 } else {

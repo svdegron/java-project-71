@@ -19,7 +19,7 @@ public class ParserTest {
         var absoluteFilePath = Paths.get(absoluteDirectoryPath, fileName1);
 
         String actualMessage = null;
-        String expectedMessage = "Check that the file \"" + absoluteFilePath.toString()
+        String expectedMessage = "Check that the file \"" + absoluteFilePath
             + "\" exists and can be accessed";
 
         try {
@@ -32,7 +32,7 @@ public class ParserTest {
     }
 
     @Test
-    public void getMapSuccess() {
+    public void getFlatMapSuccess() {
         var fileName1 = "file2.json";
         var absoluteDirectoryPath = RESOURCE_DIRECTORY.toFile().getAbsolutePath();
         var absoluteFilePath = Paths.get(absoluteDirectoryPath, fileName1);
@@ -52,6 +52,35 @@ public class ParserTest {
         } catch (IOException e) {
             actualMessage = e.getMessage();
         }
+
+        assertEquals(expectedMessage, actualMessage);
+        assertEquals(expectedMap, actualMap);
+    }
+
+    @Test
+    public void getComplexMapSuccess() {
+        var absoluteFilePath = Paths.get(RESOURCE_DIRECTORY.toFile().getAbsolutePath(), "jsonComplex.json");
+
+        String actualMessage = null;
+        String expectedMessage = null;
+
+        Map<String, Object> actualMap = null;
+        var expectedMap = new HashMap<String, Object>();
+
+        expectedMap.put("setting1", "Another value");
+        expectedMap.put("setting2", 300);
+        expectedMap.put("setting3", true);
+        expectedMap.put("numbers1", "[1, 2, 3, 4]");
+        expectedMap.put("id", "null");
+        expectedMap.put("obj1", "{nestedKey=value, isNested=true}");
+
+        try {
+            actualMap = Parser.getMap(absoluteFilePath);
+        } catch (IOException e) {
+            actualMessage = e.getMessage();
+        }
+
+        System.out.println(actualMap);
 
         assertEquals(expectedMessage, actualMessage);
         assertEquals(expectedMap, actualMap);
