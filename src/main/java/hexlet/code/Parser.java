@@ -26,20 +26,20 @@ public class Parser {
     public static Map<String, Object> convertObjects(Map<String, Object> items) {
         var convertItems = new HashMap<String, Object>();
 
-        for (String key : items.keySet()) {
-            var entryValue = items.get(key);
+        for (var entries : items.entrySet()) {
+            var entryValue = entries.getValue();
 
             if (entryValue != null) {
                 String cls = entryValue.getClass().toString();
 
                 if (cls.indexOf("ArrayList") > 0 || cls.indexOf("LinkedHashMap") > 0) {
                     var str = entryValue.toString();
-                    convertItems.put(key, str);
+                    convertItems.put(entries.getKey(), str);
                 } else {
-                    convertItems.put(key, entryValue);
+                    convertItems.put(entries.getKey(), entryValue);
                 }
             } else {
-                convertItems.put(key, "null");
+                convertItems.put(entries.getKey(), "null");
             }
         }
 
