@@ -278,4 +278,43 @@ public class DifferTest {
 
         assertEquals(expectedDifference, actualDifference);
     }
+
+    @Test
+    public void generateJsonSuccess() {
+        assertTrue(DATA_FILES_COUNT > 3);
+
+        var resultPath = Paths.get(absoluteDirectoryPath, "diff-json-3-to-4.txt");
+
+        // Наличие файлов с предполагаемыми результатами метода
+        assertTrue(Files.exists(resultPath));
+
+        String expectedDifference;
+
+        // Получаем ожидаемые результаты
+        try {
+            expectedDifference = Files.readString(resultPath);
+        } catch (IOException e) {
+            expectedDifference = e.getMessage();
+        }
+
+        // Проверяем работу метода на файлах
+        var ymlPath1 = Paths.get(absoluteDirectoryPath, "file3.yml");
+        var ymlPath2 = Paths.get(absoluteDirectoryPath, "file4.yml");
+
+        assertTrue(Files.exists(ymlPath1));
+        assertTrue(Files.exists(ymlPath2));
+
+        String actualDifference;
+
+        try {
+            var filepath1 = ymlPath1.toString();
+            var filepath2 = ymlPath2.toString();
+
+            actualDifference = Differ.generate(filepath1, filepath2, "json");
+        } catch (IOException e) {
+            actualDifference = e.getMessage();
+        }
+
+        assertEquals(expectedDifference, actualDifference);
+    }
 }
