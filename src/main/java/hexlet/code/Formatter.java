@@ -9,7 +9,7 @@ import static hexlet.code.formatters.Stylish.toStylish;
 
 public class Formatter {
 
-    public static final String EQUAL = "equal";
+    public static final String EXIST = "exist";
     public static final String DELETE = "delete";
     public static final String ADD = "add";
     public static final String EDIT = "edit";
@@ -23,7 +23,12 @@ public class Formatter {
         if ("plain".equals(format)) {
             return toPlain(map);
         } else if ("json".equals(format)) {
-            return toJson(map);
+            try {
+                toJson(map);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return "toJson(map)";
         } else {
             return toStylish(map);
         }

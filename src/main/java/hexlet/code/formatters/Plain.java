@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import static hexlet.code.Formatter.ACTION;
 import static hexlet.code.Formatter.ADD;
 import static hexlet.code.Formatter.EDIT;
-import static hexlet.code.Formatter.EQUAL;
+import static hexlet.code.Formatter.EXIST;
 import static hexlet.code.Formatter.FIRST_VALUE;
 import static hexlet.code.Formatter.SECOND_VALUE;
 
@@ -34,7 +34,7 @@ public class Plain {
                 var list = map.get(key);
                 var action = list.get(ACTION);
 
-                return !action.equals(EQUAL);
+                return !action.equals(EXIST);
             })
             .map(key -> {
                 var list = map.get(key);

@@ -37,7 +37,7 @@ public class Differ {
                 var entry2 = secondMap.get(key);
 
                 if (entry1.equals(entry2)) {
-                    results.put(key, addResult(Formatter.EQUAL, entry1));
+                    results.put(key, addResult(Formatter.EXIST, entry1));
                 } else {
                     results.put(key, addResult(Formatter.EDIT, entry1, entry2));
                 }
