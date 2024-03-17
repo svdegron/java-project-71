@@ -39,3 +39,10 @@ For examples:
 ./app -f plain file3.yml file4.yml
 ```
 [![asciicast](https://asciinema.org/a/TaOdqj7LpkDYM8GAeJIDh5NC3.svg)](https://asciinema.org/a/TaOdqj7LpkDYM8GAeJIDh5NC3)
+
+### Add json format
+```bash
+# create the files and run the command
+./app -f json file3.yml file4.yml
+```
+[![asciicast](https://asciinema.org/a/cU1aY86mWrkW2YjaLAKZrNfpq.svg)](https://asciinema.org/a/cU1aY86mWrkW2YjaLAKZrNfpq)
