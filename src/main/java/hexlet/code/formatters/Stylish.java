@@ -29,11 +29,11 @@ public class Stylish {
                 var firstValue = list.get(FIRST_VALUE);
 
                 if (action.equals(DELETE)) {
-                    return  " ".repeat(DIFFER_COUNT) + "- " + key + ": " + firstValue;
+                    return " ".repeat(DIFFER_COUNT) + "- " + key + ": " + firstValue;
                 } else if (action.equals(ADD)) {
-                    return  " ".repeat(DIFFER_COUNT) + "+ " + key + ": " + firstValue;
+                    return " ".repeat(DIFFER_COUNT) + "+ " + key + ": " + firstValue;
                 } else if (action.equals(EDIT)) {
-                    return  " ".repeat(DIFFER_COUNT) + "- " + key + ": " + firstValue + System.lineSeparator()
+                    return " ".repeat(DIFFER_COUNT) + "- " + key + ": " + firstValue + System.lineSeparator()
                         + " ".repeat(DIFFER_COUNT) + "+ " + key + ": " + list.get(SECOND_VALUE);
                 } else {
                     return " ".repeat(MATCH_COUNT) + key + ": " + firstValue;
