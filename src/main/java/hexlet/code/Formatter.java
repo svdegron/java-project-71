@@ -1,30 +1,29 @@
 package hexlet.code;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static hexlet.code.formatters.Plain.toPlain;
+import static hexlet.code.formatters.Stylish.toStylish;
 
 public class Formatter {
 
-    public static Map<String, Object> convertObjects(Map<String, Object> items) {
-        var convertItems = new HashMap<String, Object>();
+    public static final String EQUAL = "equal";
+    public static final String DELETE = "delete";
+    public static final String ADD = "add";
+    public static final String EDIT = "edit";
 
-        for (String key : items.keySet()) {
-            var entryValue = items.get(key);
+    public static final int ACTION = 0;
+    public static final int FIRST_VALUE = 1;
+    public static final int SECOND_VALUE = 2;
 
-            if (entryValue != null) {
-                String cls = entryValue.getClass().toString();
+    public static String getResult(Map<String, List<String>> map, String format) {
 
-                if (cls.indexOf("ArrayList") > 0 || cls.indexOf("LinkedHashMap") > 0) {
-                    var str = entryValue.toString();
-                    convertItems.put(key, str);
-                } else {
-                    convertItems.put(key, entryValue);
-                }
-            } else {
-                convertItems.put(key, "null");
-            }
+        if ("plain".equals(format)) {
+            return toPlain(map);
         }
 
-        return convertItems;
+        return toStylish(map);
     }
+
 }
