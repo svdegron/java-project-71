@@ -8,6 +8,8 @@ import picocli.CommandLine.Parameters;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
+//import static com.fasterxml.jackson.databind.util.ClassUtil.defaultValue;
+
 @Command(
     name = "gendiff",
     mixinStandardHelpOptions = true,
@@ -25,10 +27,20 @@ public class App implements Callable<Integer> {
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     private String filepath2;
 
+//    public abstract String defaultValue
+
     @Override
     public Integer call() throws IOException {
         try {
-            var diff = Differ.generate(filepath1, filepath2, format);
+//            System.out.println(defaultValue());
+            String diff;
+            // ? format всегда есть из-за @Option(… defaultValue = "stylish")
+            if ("stylish".equals(format)) {
+                diff = Differ.generate(filepath1, filepath2);
+            } else {
+                diff = Differ.generate(filepath1, filepath2, format);
+            }
+
             System.out.println(diff);
         } catch (IOException e) {
             System.out.println(e.getMessage());
