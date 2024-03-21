@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import static hexlet.code.formatters.PairState.ADD;
+import static hexlet.code.formatters.PairState.DELETE;
+import static hexlet.code.formatters.PairState.EDIT;
+import static hexlet.code.formatters.PairState.EXIST;
+
 public class Differ {
 
     private static List<Object> addResult(Object action, Object value) {
@@ -41,24 +46,24 @@ public class Differ {
                 var entry2 = secondMap.get(key);
 
                 if (entry1.equals(entry2)) {
-                    results.put(key, addResult(Formatter.EXIST, entry1));
+                    results.put(key, addResult(EXIST, entry1));
                 } else {
-                    results.put(key, addResult(Formatter.EDIT, entry1, entry2));
+                    results.put(key, addResult(EDIT, entry1, entry2));
                 }
 
                 secondMap.remove(key);
             } else {
-                results.put(key, addResult(Formatter.DELETE, entry1));
+                results.put(key, addResult(DELETE, entry1));
             }
         }
 
         for (var key : secondMap.keySet()) {
-            results.put(key, addResult(Formatter.ADD, secondMap.get(key)));
+            results.put(key, addResult(ADD, secondMap.get(key)));
         }
 
-        if (results.isEmpty()) {
-            return "Files are empty";
-        }
+        // Чтобы не забыть про "но форматировать его нужно по всем правилам"
+        // https://github.com/svdegron/java-project-71/blob/b86258561c4a280d4fc0cc7ed800ce93f0287058/src/main/java/hexlet/code/Differ.java#L56 Такого не нужно.
+        // Если файлы пустые, то и диф для них будет пустой, но форматировать его нужно по всем правилам
 
         return Formatter.getResult(results, format);
     }
