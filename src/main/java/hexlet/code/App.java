@@ -8,8 +8,6 @@ import picocli.CommandLine.Parameters;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
-//import static com.fasterxml.jackson.databind.util.ClassUtil.defaultValue;
-
 @Command(
     name = "gendiff",
     mixinStandardHelpOptions = true,
@@ -27,14 +25,12 @@ public class App implements Callable<Integer> {
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     private String filepath2;
 
-//    public abstract String defaultValue
-
     @Override
     public Integer call() throws IOException {
         try {
-//            System.out.println(defaultValue());
             String diff;
-            // ? format всегда есть из-за @Option(… defaultValue = "stylish")
+            // если format всегда есть из App.java#L21 @Option(… defaultValue = "stylish")
+            // то как применить перезагруженный метод? а он точно нужен?
             if ("stylish".equals(format)) {
                 diff = Differ.generate(filepath1, filepath2);
             } else {
