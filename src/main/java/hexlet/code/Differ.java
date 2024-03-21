@@ -24,6 +24,10 @@ public class Differ {
         return items;
     }
 
+    public static String generate(String filepath1, String filepath2) throws IOException {
+        return generate(filepath1, filepath2, "stylish");
+    }
+
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
         var firstMap = Parser.getMap(Paths.get(filepath1));
         var secondMap = Parser.getMap(Paths.get(filepath2));
