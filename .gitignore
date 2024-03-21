@@ -12,3 +12,6 @@ bin
 .classpath
 .idea/
 .factorypath
+
+## Ignore resources (exclude by idea command)
+#/src/main/resources/
