@@ -27,19 +27,15 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws IOException {
-//        try {
-            String diff;
+        String diff;
 
-            if ("stylish".equals(format)) {
-                diff = Differ.generate(filepath1, filepath2);
-            } else {
-                diff = Differ.generate(filepath1, filepath2, format);
-            }
+        if ("stylish".equals(format)) {
+            diff = Differ.generate(filepath1, filepath2);
+        } else {
+            diff = Differ.generate(filepath1, filepath2, format);
+        }
 
-            System.out.println(diff);
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
+        System.out.println(diff);
 
         return 0;
     }
