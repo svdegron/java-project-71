@@ -29,8 +29,7 @@ public class App implements Callable<Integer> {
     public Integer call() throws IOException {
         try {
             String diff;
-            // если format всегда есть из App.java#L21 @Option(… defaultValue = "stylish")
-            // то как применить перезагруженный метод? а он точно нужен?
+
             if ("stylish".equals(format)) {
                 diff = Differ.generate(filepath1, filepath2);
             } else {
