@@ -20,7 +20,7 @@ public class Formatter {
     }
 
     public static String getResult(Map<String, List<Object>> map, String format) {
-        String result = switch (format) {
+        return switch (format) {
             case "plain" -> toPlain(map);
             case "json" -> {
                 // продумать обработку исключения
@@ -33,7 +33,5 @@ public class Formatter {
             case "stylish" -> toStylish(map);
             default -> "";
         };
-
-        return result;
     }
 }
