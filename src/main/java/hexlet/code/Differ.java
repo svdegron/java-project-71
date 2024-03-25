@@ -14,13 +14,11 @@ import static hexlet.code.Formatter.getDifferMap;
 
 public class Differ {
 
-    public static String generate(String filepath1, String filepath2) throws IOException,
-        JsonProcessingException {
+    public static String generate(String filepath1, String filepath2) throws IOException {
         return generate(filepath1, filepath2, "stylish");
     }
 
-    public static String generate(String filepath1, String filepath2, String format) throws IOException,
-        JsonProcessingException {
+    public static String generate(String filepath1, String filepath2, String format) throws IOException {
         var firstContent = getFileContent(Paths.get(filepath1));
         var secondContent = getFileContent(Paths.get(filepath2));
 
@@ -36,10 +34,9 @@ public class Differ {
 
         var results = getDifferMap(firstMap, secondMap);
 
-        // Чтобы не забыть про "но форматировать его нужно по всем правилам"
-        // https://github.com/svdegron/java-project-71/blob/b86258561c4a280d4fc0cc7ed800ce93f0287058
-        // /src/main/java/hexlet/code/Differ.java#L56 Такого не нужно.
-        // Если файлы пустые, то и диф для них будет пустой, но форматировать его нужно по всем правилам
+        if (results == null) {
+            return "{}";
+        }
 
         return getResult(results, format);
     }
