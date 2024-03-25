@@ -28,13 +28,11 @@ public class Formatter {
                 result = toPlain(map);
                 break;
             case JSON:
-                {
-                    // продумать обработку исключения
-                    try {
-                        result =  toJson(map);
-                    } catch (JsonProcessingException e) {
-                        throw new RuntimeException(e);
-                    }
+                // продумать обработку исключения
+                try {
+                    result = toJson(map);
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
                 }
                 break;
             case STYLISH:
