@@ -32,14 +32,12 @@ public class Stylish {
         var action = (PairState) list.get(ACTION);
         var firstValue = list.get(FIRST_VALUE);
 
-        String result = switch (action) {
+        return switch (action) {
             case EXIST -> " ".repeat(MATCH) + key + ": " + firstValue;
             case DELETE -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
             case ADD -> " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
             case EDIT -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
                 + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(SECOND_VALUE);
         };
-
-        return result;
     }
 }
