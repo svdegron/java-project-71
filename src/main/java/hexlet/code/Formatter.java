@@ -21,7 +21,9 @@ public class Formatter {
 
     public static String getResult(Map<String, List<Object>> map, String format) {
         String result = switch (format) {
-            case "plain" -> toPlain(map);
+            case "plain" -> {
+                yield toPlain(map);
+            }
             case "json" -> {
                 // продумать обработку исключения
                 try {
@@ -30,7 +32,9 @@ public class Formatter {
                     throw new RuntimeException(e);
                 }
             }
-            case "stylish" -> toStylish(map);
+            case "stylish" -> {
+                yield toStylish(map);
+            }
             default -> "";
         };
 

@@ -33,11 +33,19 @@ public class Stylish {
         var firstValue = list.get(FIRST_VALUE);
 
         String result = switch (action) {
-            case EXIST -> " ".repeat(MATCH) + key + ": " + firstValue;
-            case DELETE -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
-            case ADD -> " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
-            case EDIT -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
-                + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(SECOND_VALUE);
+            case EXIST -> {
+                yield " ".repeat(MATCH) + key + ": " + firstValue;
+            }
+            case DELETE -> {
+                yield " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
+            }
+            case ADD -> {
+                yield " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
+            }
+            case EDIT -> {
+                yield " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
+                    + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(SECOND_VALUE);
+            }
         };
 
         return result;
