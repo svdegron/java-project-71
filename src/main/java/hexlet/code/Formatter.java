@@ -22,18 +22,28 @@ public class Formatter {
 
     public static String getResult(Map<String, List<Object>> map, String format) {
 
-        String result = switch (Format.valueOfLabel(format)) {
-            case PLAIN -> toPlain(map);
-            case JSON -> {
-                // продумать обработку исключения
-                try {
-                    yield toJson(map);
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
+        String result = null;
+        switch (Format.valueOfLabel(format)) {
+            case PLAIN:
+                result = toPlain(map);
+                break;
+            case JSON:
+                {
+                    // продумать обработку исключения
+                    try {
+                        result =  toJson(map);
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
-            case STYLISH -> toStylish(map);
-        };
+                break;
+            case STYLISH:
+                result = toStylish(map);
+                break;
+            default:
+                result = null;
+                break;
+        }
 
         return result;
     }
