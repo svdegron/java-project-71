@@ -8,7 +8,6 @@ import java.util.Map;
 public class Parser {
     public static Map<String, Object> getMap(String content) throws JsonProcessingException {
         var objectMapper = new YAMLMapper();
-        final var stringObjectMap = objectMapper.readValue(content, Map.class);
-        return stringObjectMap;
+        return objectMapper.readValue(content, Map.class);
     }
 }
