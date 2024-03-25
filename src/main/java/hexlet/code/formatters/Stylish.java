@@ -1,7 +1,7 @@
 package hexlet.code.formatters;
 
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static hexlet.code.Formatter.ACTION;
@@ -13,7 +13,7 @@ public class Stylish {
     private static final int DIFFER = 2;
     private static final int MATCH = DIFFER + 2;
 
-    public static String toStylish(LinkedHashMap<String, List<Object>> map) {
+    public static String toStylish(Map<String, List<Object>> map) {
         // В зависимости от операционной системы
         // переносы строк могут быть разных видов:
         // LF - For a Unix/Linux/New Mac-based OS

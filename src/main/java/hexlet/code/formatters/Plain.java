@@ -1,7 +1,7 @@
 package hexlet.code.formatters;
 
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static hexlet.code.Formatter.ACTION;
@@ -14,20 +14,24 @@ import static hexlet.code.formatters.PairState.EXIST;
 public class Plain {
 
     private static Object convertValue(Object value) {
+        if (value == null) {
+            return null;
+        }
+
         var simpleName = value.getClass().getSimpleName();
 
-        if ("String".equals(simpleName) && !"null".equals(value)) {
-            if (value.toString().charAt(0) == '{' || value.toString().charAt(0) == '[') {
-                return "[complex value]";
-            } else {
-                return "'" + value + "'";
-            }
+        if ("String".equals(simpleName)) {
+            return "'" + value + "'";
+        }
+
+        if ("ArrayList".equals(simpleName) || "LinkedHashMap".equals(simpleName)) {
+            return "[complex value]";
         }
 
         return value;
     }
 
-    public static String toPlain(LinkedHashMap<String, List<Object>> map) {
+    public static String toPlain(Map<String, List<Object>> map) {
         return map.keySet().stream()
             .sorted()
             .filter(key -> {
