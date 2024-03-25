@@ -8,7 +8,12 @@ public enum PairState {
 
     public final String label;
 
-    private PairState(String label) {
+    PairState(String label) {
         this.label = label;
+    }
+
+    @Override
+    public String toString() {
+        return this.label;
     }
 }
