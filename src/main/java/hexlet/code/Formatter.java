@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import hexlet.code.formatters.Format;
 
 import java.util.List;
 import java.util.Map;
@@ -20,11 +21,10 @@ public class Formatter {
     }
 
     public static String getResult(Map<String, List<Object>> map, String format) {
-        String result = switch (format) {
-            case "plain" -> {
-                yield toPlain(map);
-            }
-            case "json" -> {
+
+        String result = switch (Format.valueOfLabel(format)) {
+            case PLAIN -> toPlain(map);
+            case JSON -> {
                 // продумать обработку исключения
                 try {
                     yield toJson(map);
@@ -32,10 +32,7 @@ public class Formatter {
                     throw new RuntimeException(e);
                 }
             }
-            case "stylish" -> {
-                yield toStylish(map);
-            }
-            default -> "";
+            case STYLISH -> toStylish(map);
         };
 
         return result;
