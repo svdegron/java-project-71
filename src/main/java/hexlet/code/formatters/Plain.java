@@ -32,6 +32,10 @@ public class Plain {
     }
 
     public static String toPlain(Map<String, List<Object>> map) {
+        if (map == null) {
+            return "";
+        }
+
         return map.keySet().stream()
             .sorted()
             .filter(key -> {

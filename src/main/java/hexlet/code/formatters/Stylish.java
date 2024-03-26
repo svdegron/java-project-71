@@ -18,6 +18,10 @@ public class Stylish {
         // переносы строк могут быть разных видов:
         // LF - For a Unix/Linux/New Mac-based OS
         // CRLF - on a Windows-based OS
+        if (map == null) {
+            return "{}";
+        }
+
         return map.keySet().stream()
             .sorted()
             .map(key -> {
@@ -32,26 +36,12 @@ public class Stylish {
         var action = (PairState) list.get(ACTION);
         var firstValue = list.get(FIRST_VALUE);
 
-        String result = null;
-        switch (action) {
-            case EXIST:
-                result = " ".repeat(MATCH) + key + ": " + firstValue;
-                break;
-            case DELETE:
-                result = " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
-                break;
-            case ADD:
-                result = " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
-                break;
-            case EDIT:
-                result = " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
-                    + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(SECOND_VALUE);
-                break;
-            default:
-                result = null;
-                break;
-        }
-
-        return result;
+        return switch (action) {
+            case EXIST -> " ".repeat(MATCH) + key + ": " + firstValue;
+            case DELETE -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
+            case ADD -> " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
+            case EDIT -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
+                + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(SECOND_VALUE);
+        };
     }
 }

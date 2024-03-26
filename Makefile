@@ -34,6 +34,15 @@ run-yaml-json:
 run-error1:
 	"./build/install/app/bin/app" "file1.json" "file2.json"
 
+run-empty-files:
+	"./build/install/app/bin/app" "c:/idea-workspace/app2/file9.json" "c:/idea-workspace/app2/file10.json"
+
+run-empty-files-plain:
+	"./build/install/app/bin/app" -f plain "c:/idea-workspace/app2/file9.json" "c:/idea-workspace/app2/file10.json"
+
+run-empty-files-json:
+	"./build/install/app/bin/app" -f json "c:/idea-workspace/app2/file9.json" "c:/idea-workspace/app2/file10.json"
+
 build:
 	"./gradlew" :build
 

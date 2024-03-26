@@ -12,6 +12,10 @@ import static hexlet.code.formatters.PairState.EDIT;
 public class Json {
 
     public static String toJson(Map<String, List<Object>> map) throws JsonProcessingException {
+        if (map == null) {
+            return "{}";
+        }
+
         Map<String, TreeMap<String, Object>> result = new TreeMap<>();
 
         for (var entries : map.entrySet()) {
