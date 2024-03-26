@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 public class Stylish {
 
-    private static final int DIFFER = 2;
-    private static final int MATCH = DIFFER + 2;
+//    private static final int DIFFER = 2;
+//    private static final int MATCH = DIFFER + 2;
 
     public static String toStylish(Map<String, List<Object>> map) {
         // В зависимости от операционной системы
@@ -37,11 +37,11 @@ public class Stylish {
         var firstValue = list.get(1);
 
         return switch (action) {
-            case EXIST -> " ".repeat(2) + key + ": " + firstValue;
-            case DELETE -> " ".repeat(4) + "- " + key + ": " + firstValue;
-            case ADD -> " ".repeat(4) + "+ " + key + ": " + firstValue;
-            case EDIT -> " ".repeat(4) + "- " + key + ": " + firstValue + System.lineSeparator()
-                + " ".repeat(4) + "+ " + key + ": " + list.get(2);
+            case EXIST -> " ".repeat(4) + key + ": " + firstValue;
+            case DELETE -> " ".repeat(2) + "- " + key + ": " + firstValue;
+            case ADD -> " ".repeat(2) + "+ " + key + ": " + firstValue;
+            case EDIT -> " ".repeat(2) + "- " + key + ": " + firstValue + System.lineSeparator()
+                + " ".repeat(2) + "+ " + key + ": " + list.get(2);
         };
     }
 }
