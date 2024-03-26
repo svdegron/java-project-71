@@ -114,7 +114,7 @@ public class DifferTest {
 
     @Test
     public void generateJsonToDefault() throws IOException {
-        var actual = generate(FILE_1, FILE_2);
+        var actual = generate(FILE_1, FILE_2, null);
         assertEquals(RESULT_DEFAULT, actual);
     }
 
@@ -138,7 +138,7 @@ public class DifferTest {
 
     @Test
     public void generateYamlToDefault() throws IOException {
-        var actual = generate(FILE_3, FILE_4);
+        var actual = generate(FILE_3, FILE_4, null);
         assertEquals(RESULT_DEFAULT, actual);
     }
 
