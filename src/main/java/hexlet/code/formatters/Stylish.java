@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static hexlet.code.Formatter.ACTION;
-import static hexlet.code.Formatter.FIRST_VALUE;
-import static hexlet.code.Formatter.SECOND_VALUE;
+//import static hexlet.code.Formatter.ACTION;
+//import static hexlet.code.Formatter.FIRST_VALUE;
+//import static hexlet.code.Formatter.SECOND_VALUE;
 
 public class Stylish {
 
@@ -33,15 +33,15 @@ public class Stylish {
     }
 
     private static String getString(String key, List<Object> list) {
-        var action = (PairState) list.get(ACTION);
-        var firstValue = list.get(FIRST_VALUE);
+        var action = (PairState) list.get(0);
+        var firstValue = list.get(1);
 
         return switch (action) {
-            case EXIST -> " ".repeat(MATCH) + key + ": " + firstValue;
-            case DELETE -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
-            case ADD -> " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
-            case EDIT -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
-                + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(SECOND_VALUE);
+            case EXIST -> " ".repeat(2) + key + ": " + firstValue;
+            case DELETE -> " ".repeat(4) + "- " + key + ": " + firstValue;
+            case ADD -> " ".repeat(4) + "+ " + key + ": " + firstValue;
+            case EDIT -> " ".repeat(4) + "- " + key + ": " + firstValue + System.lineSeparator()
+                + " ".repeat(4) + "+ " + key + ": " + list.get(2);
         };
     }
 }
