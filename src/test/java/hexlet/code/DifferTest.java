@@ -113,50 +113,83 @@ public class DifferTest {
     );
 
     @Test
-    public void generateJsonToDefault() throws IOException {
-        var actual = generate(FILE_1, FILE_2, null);
-        assertEquals(RESULT_DEFAULT, actual);
+    public void generateJsonToDefault() {
+        try {
+            var actual = generate(FILE_1, FILE_2, null);
+            assertEquals(RESULT_DEFAULT, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
+        }
     }
 
     @Test
-    public void generateJsonToStylish() throws IOException {
-        var actual = generate(FILE_5, FILE_6, "stylish");
-        assertEquals(RESULT_STYLISH, actual);
+    public void generateJsonToStylish() {
+        try {
+            var actual = generate(FILE_5, FILE_6, "stylish");
+            assertEquals(RESULT_STYLISH, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
+        }
     }
 
     @Test
-    public void generateJsonToPlain() throws IOException {
-        var actual = generate(FILE_5, FILE_6, "plain");
-        assertEquals(RESULT_PLAIN, actual);
+    public void generateJsonToPlain() {
+        try {
+            var actual = generate(FILE_5, FILE_6, "plain");
+            assertEquals(RESULT_PLAIN, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
+        }
     }
 
     @Test
-    public void generateJsonToJson() throws IOException {
-        var actual = generate(FILE_5, FILE_6, "json");
-        assertEquals(RESULT_JSON, actual);
+    public void generateJsonToJson() {
+        try {
+            var actual = generate(FILE_5, FILE_6, "json");
+            assertEquals(RESULT_JSON, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
+        }
     }
 
     @Test
-    public void generateYamlToDefault() throws IOException {
-        var actual = generate(FILE_3, FILE_4, null);
-        assertEquals(RESULT_DEFAULT, actual);
+    public void generateYamlToDefault() {
+        try {
+            var actual = generate(FILE_3, FILE_4, null);
+            assertEquals(RESULT_DEFAULT, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
+        }
     }
 
     @Test
-    public void generateYamlToStylish() throws IOException {
-        var actual = generate(FILE_7, FILE_8, "stylish");
-        assertEquals(RESULT_STYLISH, actual);
+    public void generateYamlToStylish() {
+        try {
+            var actual = generate(FILE_7, FILE_8, "stylish");
+            assertEquals(RESULT_STYLISH, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
+        }
     }
 
     @Test
-    public void generateYamlToPlain() throws IOException {
-        var actual = generate(FILE_7, FILE_8, "plain");
-        assertEquals(RESULT_PLAIN, actual);
+    public void generateYamlToPlain() {
+        try {
+            var actual = generate(FILE_7, FILE_8, "plain");
+            assertEquals(RESULT_PLAIN, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
+        }
     }
 
     @Test
-    public void generateYamlToJson() throws IOException {
-        var actual = generate(FILE_7, FILE_8, "json");
-        assertEquals(RESULT_JSON, actual);
+    public void generateYamlToJson() {
+        try {
+            var actual = generate(FILE_7, FILE_8, "json");
+            assertEquals(RESULT_JSON, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
+        }
+
     }
 }
