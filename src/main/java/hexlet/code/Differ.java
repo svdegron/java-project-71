@@ -27,8 +27,15 @@ public class Differ {
         var firstContent = getFileContent(Paths.get(filepath1));
         var secondContent = getFileContent(Paths.get(filepath2));
 
-        Map<String, Object> firstMap = getMap(firstContent);
-        Map<String, Object> secondMap = getMap(secondContent);
+        Map<String, Object> firstMap;
+        Map<String, Object> secondMap;
+
+        try {
+            firstMap = getMap(firstContent);
+            secondMap = getMap(secondContent);
+        } catch (Exception e) {
+            return null;
+        }
 
         return getDifferMap(firstMap, secondMap);
     }
