@@ -38,17 +38,15 @@ public class Differ {
         Map<String, Object> firstMap;
         Map<String, Object> secondMap;
 
-
         firstMap = getMap(firstContent);
         secondMap = getMap(secondContent);
-
 
         return getDifferMap(firstMap, secondMap);
     }
 
     public static String getFileContent(Path path) throws IOException {
         if (!Files.exists(path)) {
-            throw new IOException("Check that the file \"" + path + "\" exists and can be accessed");
+            throw new IOException("Check 1 that the file \"" + path + "\" exists and can be accessed");
         }
 
         return Files.readString(path);
