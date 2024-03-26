@@ -31,7 +31,7 @@ public class Differ {
     }
 
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
-        Map<String, List<Object>> map = null;
+        Map<String, List<Object>> map;
 
         try {
             map = generate(filepath1, filepath2);
