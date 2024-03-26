@@ -21,8 +21,8 @@ public class Formatter {
     }
 
     public static String getResult(Map<String, List<Object>> map, String format) {
+        String result;
 
-        String result = null;
         switch (Format.valueOfLabel(format)) {
             case PLAIN:
                 result = toPlain(map);
