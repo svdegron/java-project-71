@@ -15,21 +15,6 @@ import static hexlet.code.Formatter.getDifferMap;
 
 public class Differ {
 
-    public static Map<String, List<Object>> generate(String filepath1, String filepath2) throws IOException {
-        var firstContent = getFileContent(Paths.get(filepath1));
-        var secondContent = getFileContent(Paths.get(filepath2));
-
-        Map<String, Object> firstMap;
-        Map<String, Object> secondMap;
-
-
-            firstMap = getMap(firstContent);
-            secondMap = getMap(secondContent);
-
-
-        return getDifferMap(firstMap, secondMap);
-    }
-
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
         Map<String, List<Object>> map;
 
@@ -44,6 +29,21 @@ public class Differ {
         }
 
         return getResult(map, format);
+    }
+
+    public static Map<String, List<Object>> generate(String filepath1, String filepath2) throws IOException {
+        var firstContent = getFileContent(Paths.get(filepath1));
+        var secondContent = getFileContent(Paths.get(filepath2));
+
+        Map<String, Object> firstMap;
+        Map<String, Object> secondMap;
+
+
+        firstMap = getMap(firstContent);
+        secondMap = getMap(secondContent);
+
+
+        return getDifferMap(firstMap, secondMap);
     }
 
     public static String getFileContent(Path path) throws IOException {
