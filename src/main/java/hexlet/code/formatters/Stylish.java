@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 //import static hexlet.code.Formatter.SECOND_VALUE;
 
 public class Stylish {
-
 //    private static final int DIFFER = 2;
 //    private static final int MATCH = DIFFER + 2;
 
