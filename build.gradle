@@ -12,6 +12,14 @@ application {
     mainClass = 'hexlet.code.App'
 }
 
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked"
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
