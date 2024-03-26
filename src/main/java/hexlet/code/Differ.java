@@ -14,11 +14,11 @@ import static hexlet.code.Formatter.getDifferMap;
 public class Differ {
 
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
-        Map<String, List<Object>> map = generate(filepath1, filepath2);
-
         if (format == null) {
             format = "stylish";
         }
+
+        Map<String, List<Object>> map = generate(filepath1, filepath2);
 
         return getResult(map, format);
     }
