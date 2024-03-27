@@ -45,7 +45,7 @@ run-empty-files-json:
 
 build:
 	cd app
-	./app/gradlew :build
+	./gradlew :build
 
 report:
 	"./gradlew" jacocoTestReport
