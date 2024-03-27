@@ -45,6 +45,7 @@ run-empty-files-json:
 
 build:
 	cd app
+	ls -la
 	./gradlew :build
 
 report:
