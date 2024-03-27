@@ -1,5 +1,5 @@
 name: Build project
-run-name: Try ${{ github.run_number }}. Workflow «${{ github.workflow }}» by ${{ github.actor }} 🚀
+run-name: Workflow «${{ github.workflow }}» by ${{ github.actor }} 🚀
 on: [push]
 jobs:
   Build-task:
@@ -13,7 +13,6 @@ jobs:
         with:
           coverageCommand: ./app/gradlew jacocoTestReport
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-          coverageInputType: jacoco
 
       # - uses: actions/checkout@v3
       # - run: |
