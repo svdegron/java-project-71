@@ -44,7 +44,7 @@ run-empty-files-json:
 	"./build/install/app/bin/app" -f json "c:/idea-workspace/app2/file9.json" "c:/idea-workspace/app2/file10.json"
 
 build:
-	"./app/gradlew" :build
+	"./gradlew" :build
 
 report:
 	"./gradlew" jacocoTestReport
