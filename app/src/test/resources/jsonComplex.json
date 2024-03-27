@@ -1,0 +1,11 @@
+{
+  "setting1": "Another value",
+  "setting2": 300,
+  "setting3": true,
+  "numbers1": [1, 2, 3, 4],
+  "id": null,
+  "obj1": {
+    "nestedKey": "value",
+    "isNested": true
+  }
+}

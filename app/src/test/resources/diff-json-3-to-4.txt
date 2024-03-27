@@ -1,0 +1,25 @@
+{
+  "exist" : {
+    "chars1" : [ "a", "b", "c" ],
+    "numbers1" : [ "1", "2", "3", "4" ]
+  },
+  "add" : {
+    "key2" : "value2",
+    "numbers4" : [ "4", "5", "6" ],
+    "obj1" : "{nestedKey:value, isNested:true}"
+  },
+  "edit" : {
+    "setting2" : 200,
+    "setting3" : true,
+    "default" : null,
+    "chars2" : [ "d", "e", "f" ],
+    "setting1" : "Some value",
+    "numbers2" : [ "2", "3", "4", "5" ],
+    "checked" : false,
+    "id" : 45
+  },
+  "delete" : {
+    "key1" : "value1",
+    "numbers3" : [ "3", "4", "5" ]
+  }
+}
