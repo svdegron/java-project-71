@@ -7,6 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
+          ./app/gradlew init
           ./app/gradlew :build
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
