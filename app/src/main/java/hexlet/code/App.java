@@ -24,7 +24,7 @@ public class App implements Callable<Integer> {
 
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     private String filepath2;
-    
+
     /**
      * Calculate the square of a rectangle.
      * @return integer number
