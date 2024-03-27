@@ -13,41 +13,35 @@ run-V:
 run-version:
 	"./build/install/app/bin/app" --version
 
-run-files:
-	"./build/install/app/bin/app" "./build/install/app/bin/file1.json" "./build/install/app/bin/file2.json"
+run-json:
+	"./build/install/app/bin/app" "./src/test/resources/file5.json" "./src/test/resources/file6.json"
 
-run-files-windows:
-	"./build/install/app/bin/app" "./src/main/resources/file1.json" "./src/main/resources/file2.json"
+run-yaml:
+	"./build/install/app/bin/app" "./src/test/resources/file7.yml" "./src/test/resources/file8.yml"
 
-run-files-windows1:
-	"./build/install/app/bin/app" "./src/main/resources/file3.json" "./src/main/resources/file4.json"
+run-json-plain:
+	"./build/install/app/bin/app" -f plain "./src/test/resources/file5.json" "./src/test/resources/file6.json"
 
-run-files-windows2:
-	"./build/install/app/bin/app" -f plain "./src/main/resources/file1.json" "./src/main/resources/file2.json"
+run-yaml-plain:
+	"./build/install/app/bin/app" -f plain "./src/test/resources/file7.yml" "./src/test/resources/file8.yml"
 
-run-files-windows3:
-	"./build/install/app/bin/app" -f plain "./src/main/resources/file3.json" "./src/main/resources/file4.json"
+run-json-json:
+	"./build/install/app/bin/app" -f json "./src/test/resources/file5.json" "./src/test/resources/file6.json"
 
-run-files-windows4:
-	"./build/install/app/bin/app" -f json "./src/main/resources/file3.json" "./src/main/resources/file4.json"
+run-yaml-json:
+	"./build/install/app/bin/app" -f json "./src/test/resources/file7.yml" "./src/test/resources/file8.yml"
 
-run-files-yaml:
-	"./build/install/app/bin/app" "./src/main/resources/file1.yml" "./src/main/resources/file2.yml"
-
-run-files-yaml1:
-	"./build/install/app/bin/app" "./src/main/resources/file3.yml" "./src/main/resources/file4.yml"
-
-run-files-yaml2:
-	"./build/install/app/bin/app" -f plain "./src/main/resources/file3.yml" "./src/main/resources/file4.yml"
-
-run-files-yaml3:
-	"./build/install/app/bin/app" -f json "./src/main/resources/file3.yml" "./src/main/resources/file4.yml"
-
-run-files-error1:
+run-error1:
 	"./build/install/app/bin/app" "file1.json" "file2.json"
 
-run-files-error2:
-	"./build/install/app/bin/app" "c:\idea-workspace\app2\file1.json" "file2.json"
+run-empty-files:
+	"./build/install/app/bin/app" "c:/idea-workspace/app2/file9.json" "c:/idea-workspace/app2/file10.json"
+
+run-empty-files-plain:
+	"./build/install/app/bin/app" -f plain "c:/idea-workspace/app2/file9.json" "c:/idea-workspace/app2/file10.json"
+
+run-empty-files-json:
+	"./build/install/app/bin/app" -f json "c:/idea-workspace/app2/file9.json" "c:/idea-workspace/app2/file10.json"
 
 build:
 	"./gradlew" :build

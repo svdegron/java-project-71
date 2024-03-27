@@ -1,320 +1,195 @@
 package hexlet.code;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 
+import static hexlet.code.Differ.generate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DifferTest {
-
     private static final Path RESOURCE_DIRECTORY = Paths.get("src", "test", "resources");
+    private static final String ABSOLUTE_PATH = RESOURCE_DIRECTORY.toFile().getAbsolutePath();
+    private static final String FILE_1 = String.join(File.separator, ABSOLUTE_PATH, "file1.json");
+    private static final String FILE_2 = String.join(File.separator, ABSOLUTE_PATH, "file2.json");
+    private static final String FILE_3 = String.join(File.separator, ABSOLUTE_PATH, "file3.yml");
+    private static final String FILE_4 = String.join(File.separator, ABSOLUTE_PATH, "file4.yml");
+    private static final String FILE_5 = String.join(File.separator, ABSOLUTE_PATH, "file5.json");
+    private static final String FILE_6 = String.join(File.separator, ABSOLUTE_PATH, "file6.json");
+    private static final String FILE_7 = String.join(File.separator, ABSOLUTE_PATH, "file7.yml");
+    private static final String FILE_8 = String.join(File.separator, ABSOLUTE_PATH, "file8.yml");
+    private static final String RESULT_DEFAULT = String.join(System.lineSeparator(),
+        "{",
+        " ".repeat(2) + "- follow: false",
+        " ".repeat(4) + "host: hexlet.io",
+        " ".repeat(2) + "- proxy: 123.234.53.22",
+        " ".repeat(2) + "- timeout: 50",
+        " ".repeat(2) + "+ timeout: 20",
+        " ".repeat(2) + "+ verbose: true",
+        "}"
+    );
+    private static final String RESULT_STYLISH = String.join(System.lineSeparator(),
+        "{",
+        " ".repeat(4) + "chars1: [a, b, c]",
+        " ".repeat(2) + "- chars2: [d, e, f]",
+        " ".repeat(2) + "+ chars2: false",
+        " ".repeat(2) + "- checked: false",
+        " ".repeat(2) + "+ checked: true",
+        " ".repeat(2) + "- default: null",
+        " ".repeat(2) + "+ default: [value1, value2]",
+        " ".repeat(2) + "- id: 45",
+        " ".repeat(2) + "+ id: null",
+        " ".repeat(2) + "- key1: value1",
+        " ".repeat(2) + "+ key2: value2",
+        " ".repeat(4) + "numbers1: [1, 2, 3, 4]",
+        " ".repeat(2) + "- numbers2: [2, 3, 4, 5]",
+        " ".repeat(2) + "+ numbers2: [22, 33, 44, 55]",
+        " ".repeat(2) + "- numbers3: [3, 4, 5]",
+        " ".repeat(2) + "+ numbers4: [4, 5, 6]",
+        " ".repeat(2) + "+ obj1: {nestedKey=value, isNested=true}",
+        " ".repeat(2) + "- setting1: Some value",
+        " ".repeat(2) + "+ setting1: Another value",
+        " ".repeat(2) + "- setting2: 200",
+        " ".repeat(2) + "+ setting2: 300",
+        " ".repeat(2) + "- setting3: true",
+        " ".repeat(2) + "+ setting3: none",
+        "}"
+    );
+    private static final String RESULT_PLAIN = String.join(System.lineSeparator(),
+        "Property 'chars2' was updated. From [complex value] to false",
+        "Property 'checked' was updated. From false to true",
+        "Property 'default' was updated. From null to [complex value]",
+        "Property 'id' was updated. From 45 to null",
+        "Property 'key1' was removed",
+        "Property 'key2' was added with value: 'value2'",
+        "Property 'numbers2' was updated. From [complex value] to [complex value]",
+        "Property 'numbers3' was removed",
+        "Property 'numbers4' was added with value: [complex value]",
+        "Property 'obj1' was added with value: [complex value]",
+        "Property 'setting1' was updated. From 'Some value' to 'Another value'",
+        "Property 'setting2' was updated. From 200 to 300",
+        "Property 'setting3' was updated. From true to 'none'"
+    );
+    private static final String RESULT_JSON = String.join(System.lineSeparator(),
+        "{",
+        " ".repeat(2) + "\"add\" : {",
+        " ".repeat(4) + "\"key2\" : \"value2\",",
+        " ".repeat(4) + "\"numbers4\" : [ 4, 5, 6 ],",
+        " ".repeat(4) + "\"obj1\" : {",
+        " ".repeat(6) + "\"nestedKey\" : \"value\",",
+        " ".repeat(6) + "\"isNested\" : true",
+        " ".repeat(4) + "}",
+        " ".repeat(2) + "},",
+        " ".repeat(2) + "\"delete\" : {",
+        " ".repeat(4) + "\"key1\" : \"value1\",",
+        " ".repeat(4) + "\"numbers3\" : [ 3, 4, 5 ]",
+        " ".repeat(2) + "},",
+        " ".repeat(2) + "\"edit\" : {",
+        " ".repeat(4) + "\"chars2_new\" : false,",
+        " ".repeat(4) + "\"chars2_old\" : [ \"d\", \"e\", \"f\" ],",
+        " ".repeat(4) + "\"checked_new\" : true,",
+        " ".repeat(4) + "\"checked_old\" : false,",
+        " ".repeat(4) + "\"default_new\" : [ \"value1\", \"value2\" ],",
+        " ".repeat(4) + "\"default_old\" : null,",
+        " ".repeat(4) + "\"id_new\" : null,",
+        " ".repeat(4) + "\"id_old\" : 45,",
+        " ".repeat(4) + "\"numbers2_new\" : [ 22, 33, 44, 55 ],",
+        " ".repeat(4) + "\"numbers2_old\" : [ 2, 3, 4, 5 ],",
+        " ".repeat(4) + "\"setting1_new\" : \"Another value\",",
+        " ".repeat(4) + "\"setting1_old\" : \"Some value\",",
+        " ".repeat(4) + "\"setting2_new\" : 300,",
+        " ".repeat(4) + "\"setting2_old\" : 200,",
+        " ".repeat(4) + "\"setting3_new\" : \"none\",",
+        " ".repeat(4) + "\"setting3_old\" : true",
+        " ".repeat(2) + "},",
+        " ".repeat(2) + "\"exist\" : {",
+        " ".repeat(4) + "\"chars1\" : [ \"a\", \"b\", \"c\" ],",
+        " ".repeat(4) + "\"numbers1\" : [ 1, 2, 3, 4 ]",
+        " ".repeat(2) + "}",
+        "}"
+    );
 
-    // Количество файлов для тестирования
-    private static final int DATA_FILES_COUNT = 4;
-
-    private static String correctResourceDirectory;
-    private static String absoluteDirectoryPath;
-
-    @BeforeAll
-    public static void beforeAll() {
-        String[] pathPieces = {"src", "test", "resources"};
-        correctResourceDirectory = String.join(File.separator, pathPieces);
-
-        absoluteDirectoryPath = RESOURCE_DIRECTORY.toFile().getAbsolutePath();
+    @Test
+    public void generateJsonToDefault() {
+        try {
+            var actual = generate(FILE_1, FILE_2, null);
+            assertEquals(RESULT_DEFAULT, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
+        }
     }
 
     @Test
-    public void checkResourceDirectory() {
-        // Здесь разница в один символ ("\" или "/" сложно сразу заметить), поэтому добавил сообщение
-        if (!absoluteDirectoryPath.endsWith(correctResourceDirectory)) {
-            System.out.println("[WARN] " + System.getProperty("os.name") + " is Your operating system"
-                + "\n[INFO] Check file separator");
+    public void generateJsonToStylish() {
+        try {
+            var actual = generate(FILE_5, FILE_6, "stylish");
+            assertEquals(RESULT_STYLISH, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
         }
-
-        assertTrue(absoluteDirectoryPath.endsWith(correctResourceDirectory));
     }
 
     @Test
-    public void checkJsonFiles() {
-        Map<Path, Boolean> existPath = new HashMap<>();
-        Map<Path, Boolean> expected = new HashMap<>();
-
-        for (var iStep = 1; iStep <= DATA_FILES_COUNT; iStep++) {
-            var fileName = "file" + iStep + ".json";
-            var absoluteFilePath = Paths.get(absoluteDirectoryPath, fileName);
-            var isExist = Files.exists(absoluteFilePath);
-
-            existPath.put(absoluteFilePath, isExist);
-            expected.put(absoluteFilePath, true);
+    public void generateJsonToPlain() {
+        try {
+            var actual = generate(FILE_5, FILE_6, "plain");
+            assertEquals(RESULT_PLAIN, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
         }
-
-        // специально переделал на Map
-        // чтобы отображались пути к файлам в Expected/Actual
-        assertEquals(expected, existPath);
     }
 
     @Test
-    public void checkYamlFiles() {
-        Map<Path, Boolean> existPath = new HashMap<>();
-        Map<Path, Boolean> expected = new HashMap<>();
-
-        for (var iStep = 1; iStep <= DATA_FILES_COUNT; iStep++) {
-            var fileName = "file" + iStep + ".yml";
-            var absoluteFilePath = Paths.get(absoluteDirectoryPath, fileName);
-            var isExist = Files.exists(absoluteFilePath);
-
-            existPath.put(absoluteFilePath, isExist);
-            expected.put(absoluteFilePath, true);
+    public void generateJsonToJson() {
+        try {
+            var actual = generate(FILE_5, FILE_6, "json");
+            assertEquals(RESULT_JSON, actual);
+        } catch (IOException e) {
+            assertEquals("RESULT", e.getMessage());
         }
-
-        assertEquals(expected, existPath);
     }
 
     @Test
-    public void generateFlatSuccess() {
-        // Проверить количество файлов (забыл, удалили, не вложили…)
-        assertTrue(DATA_FILES_COUNT > 1);
-
-        var absolutePathResult1 = Paths.get(absoluteDirectoryPath, "diff-stylish-1-to-2.txt");
-        var absolutePathResult2 = Paths.get(absoluteDirectoryPath, "diff-stylish-2-to-1.txt");
-
-        // Наличие файлов с предполагаемыми результатами метода
-        assertTrue(Files.exists(absolutePathResult1));
-        assertTrue(Files.exists(absolutePathResult2));
-
-        String expectedJsonDirect;
-        String expectedJsonReverse;
-        String expectedYmlDirect;
-        String expectedYmlReverse;
-
-        // Получаем ожидаемые результаты
+    public void generateYamlToDefault() {
         try {
-            expectedJsonDirect = Files.readString(absolutePathResult1);
-            expectedJsonReverse = Files.readString(absolutePathResult2);
+            var actual = generate(FILE_3, FILE_4, null);
+            assertEquals(RESULT_DEFAULT, actual);
         } catch (IOException e) {
-            expectedJsonDirect = e.getMessage();
-            expectedJsonReverse = e.getMessage();
+            assertEquals("RESULT", e.getMessage());
         }
-
-        try {
-            expectedYmlDirect = Files.readString(absolutePathResult1);
-            expectedYmlReverse = Files.readString(absolutePathResult2);
-        } catch (IOException e) {
-            expectedYmlDirect = e.getMessage();
-            expectedYmlReverse = e.getMessage();
-        }
-
-        // Проверяем работу метода на файлах
-        var jsonPath1 = Paths.get(absoluteDirectoryPath, "file1.json");
-        var jsonPath2 = Paths.get(absoluteDirectoryPath, "file2.json");
-        var ymlPath1 = Paths.get(absoluteDirectoryPath, "file1.yml");
-        var ymlPath2 = Paths.get(absoluteDirectoryPath, "file2.yml");
-
-        assertTrue(Files.exists(jsonPath1));
-        assertTrue(Files.exists(jsonPath2));
-        assertTrue(Files.exists(ymlPath1));
-        assertTrue(Files.exists(ymlPath2));
-
-        String actualJsonDirect;
-        String actualJsonReverse;
-        String actualYmlDirect;
-        String actualYmlReverse;
-
-        try {
-            var filepath1 = jsonPath1.toString();
-            var filepath2 = jsonPath2.toString();
-
-            actualJsonDirect = Differ.generate(filepath1, filepath2, "stylish");
-            actualJsonReverse = Differ.generate(filepath2, filepath1, "stylish");
-        } catch (IOException e) {
-            actualJsonDirect = e.getMessage();
-            actualJsonReverse = e.getMessage();
-        }
-
-        try {
-            var filepath1 = ymlPath1.toString();
-            var filepath2 = ymlPath2.toString();
-
-            actualYmlDirect = Differ.generate(filepath1, filepath2, "stylish");
-            actualYmlReverse = Differ.generate(filepath2, filepath1, "stylish");
-        } catch (IOException e) {
-            actualYmlDirect = e.getMessage();
-            actualYmlReverse = e.getMessage();
-        }
-
-        // 1 сравниваем со 2
-        assertEquals(expectedJsonDirect, actualJsonDirect);
-        // в обратном порядке "+" и "-" меняются местами
-        assertEquals(expectedJsonReverse, actualJsonReverse);
-        // тоже для формата yaml
-        assertEquals(expectedYmlDirect, actualYmlDirect);
-        assertEquals(expectedYmlReverse, actualYmlReverse);
     }
 
     @Test
-    public void generateFileMissing() {
-        var fileName1 = "this-second-File-is-Not-Exist.json";
-        var fileName2 = "this-First-File-is-Not-Exist.json";
-
-        var absoluteFilePath1 = Paths.get(absoluteDirectoryPath, fileName1);
-        var absoluteFilePath2 = Paths.get(absoluteDirectoryPath, fileName2);
-
-        // Наличие файлов с предполагаемыми результатами метода
-        assertFalse(Files.exists(absoluteFilePath1));
-        assertFalse(Files.exists(absoluteFilePath2));
-
-        String expectedDiffDirect = null;
-        String expectedDiffReverse = null;
-
-        String actualDiffDirect;
-        String actualDiffReverse;
-
-        var filepath1 = absoluteFilePath1.toString();
-        var filepath2 = absoluteFilePath2.toString();
-
+    public void generateYamlToStylish() {
         try {
-            actualDiffDirect = Differ.generate(filepath1, filepath2, "stylish");
+            var actual = generate(FILE_7, FILE_8, "stylish");
+            assertEquals(RESULT_STYLISH, actual);
         } catch (IOException e) {
-            actualDiffDirect = e.getMessage();
-            expectedDiffDirect = e.getMessage();
+            assertEquals("RESULT", e.getMessage());
         }
-
-        try {
-            actualDiffReverse = Differ.generate(filepath2, filepath1, "stylish");
-        } catch (IOException e) {
-            actualDiffReverse = e.getMessage();
-            expectedDiffReverse = e.getMessage();
-        }
-
-        // по аналогии с тестом, который проверяет корректный результат
-        assertEquals(expectedDiffDirect, actualDiffDirect);
-        assertEquals(expectedDiffReverse, actualDiffReverse);
     }
 
     @Test
-    public void generateComplexSuccess() {
-        assertTrue(DATA_FILES_COUNT > 3);
-
-        var resultPath = Paths.get(absoluteDirectoryPath, "diff-stylish-3-to-4.txt");
-
-        // Наличие файлов с предполагаемыми результатами метода
-        assertTrue(Files.exists(resultPath));
-
-        String expectedDifference;
-
-        // Получаем ожидаемые результаты
+    public void generateYamlToPlain() {
         try {
-            expectedDifference = Files.readString(resultPath);
+            var actual = generate(FILE_7, FILE_8, "plain");
+            assertEquals(RESULT_PLAIN, actual);
         } catch (IOException e) {
-            expectedDifference = e.getMessage();
+            assertEquals("RESULT", e.getMessage());
         }
-
-        // Проверяем работу метода на файлах
-        var jsonPath1 = Paths.get(absoluteDirectoryPath, "file3.json");
-        var jsonPath2 = Paths.get(absoluteDirectoryPath, "file4.json");
-
-        assertTrue(Files.exists(jsonPath1));
-        assertTrue(Files.exists(jsonPath2));
-
-        String actualJsonDirect;
-
-        try {
-            var filepath1 = jsonPath1.toString();
-            var filepath2 = jsonPath2.toString();
-
-            actualJsonDirect = Differ.generate(filepath1, filepath2, "stylish");
-        } catch (IOException e) {
-            actualJsonDirect = e.getMessage();
-        }
-
-        assertEquals(expectedDifference, actualJsonDirect);
     }
 
     @Test
-    public void generatePlainSuccess() {
-        assertTrue(DATA_FILES_COUNT > 3);
-
-        var resultPath = Paths.get(absoluteDirectoryPath, "diff-plain-3-to-4.txt");
-
-        // Наличие файлов с предполагаемыми результатами метода
-        assertTrue(Files.exists(resultPath));
-
-        String expectedDifference;
-
-        // Получаем ожидаемые результаты
+    public void generateYamlToJson() {
         try {
-            expectedDifference = Files.readString(resultPath);
+            var actual = generate(FILE_7, FILE_8, "json");
+            assertEquals(RESULT_JSON, actual);
         } catch (IOException e) {
-            expectedDifference = e.getMessage();
+            assertEquals("RESULT", e.getMessage());
         }
 
-        // Проверяем работу метода на файлах
-        var ymlPath1 = Paths.get(absoluteDirectoryPath, "file3.yml");
-        var ymlPath2 = Paths.get(absoluteDirectoryPath, "file4.yml");
-
-        assertTrue(Files.exists(ymlPath1));
-        assertTrue(Files.exists(ymlPath2));
-
-        String actualDifference;
-
-        try {
-            var filepath1 = ymlPath1.toString();
-            var filepath2 = ymlPath2.toString();
-
-            actualDifference = Differ.generate(filepath1, filepath2, "plain");
-        } catch (IOException e) {
-            actualDifference = e.getMessage();
-        }
-
-        assertEquals(expectedDifference, actualDifference);
-    }
-
-    @Test
-    public void generateJsonSuccess() {
-        assertTrue(DATA_FILES_COUNT > 3);
-
-        var resultPath = Paths.get(absoluteDirectoryPath, "diff-json-3-to-4.txt");
-
-        // Наличие файлов с предполагаемыми результатами метода
-        assertTrue(Files.exists(resultPath));
-
-        String expectedDifference;
-
-        // Получаем ожидаемые результаты
-        try {
-            expectedDifference = Files.readString(resultPath);
-        } catch (IOException e) {
-            expectedDifference = e.getMessage();
-        }
-
-        // Проверяем работу метода на файлах
-        var ymlPath1 = Paths.get(absoluteDirectoryPath, "file3.yml");
-        var ymlPath2 = Paths.get(absoluteDirectoryPath, "file4.yml");
-
-        assertTrue(Files.exists(ymlPath1));
-        assertTrue(Files.exists(ymlPath2));
-
-        String actualDifference;
-
-        try {
-            var filepath1 = ymlPath1.toString();
-            var filepath2 = ymlPath2.toString();
-
-            actualDifference = Differ.generate(filepath1, filepath2, "json");
-        } catch (IOException e) {
-            actualDifference = e.getMessage();
-        }
-
-        assertEquals(expectedDifference, actualDifference);
     }
 }
