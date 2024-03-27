@@ -1,22 +1,10 @@
 name: Build project
-run-name: ${{github.workspace}}
+run-name: Try ${{ github.run_number }}. Workflow «${{ github.workflow }}» by ${{ github.actor }} 🚀
 on: [push]
 jobs:
   Build-task:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: '8.5'
-          build-root-directory: 'app'
-      - uses: actions/setup-java@v4.2.1
-        with:
-          distribution: 'zulu'
-          java-version: '20.0.2'
-      - run: |
-          ./app/gradlew init
-          ./app/gradlew :build
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
@@ -25,3 +13,7 @@ jobs:
         with:
           coverageCommand: ./app/gradlew jacocoTestReport
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+      # - uses: actions/checkout@v3
+      # - run: |
+      #     ./app/gradlew init
+      #     ./app/gradlew :build
