@@ -15,7 +15,7 @@ jobs:
           distribution: 'zulu'
           java-version: '20.0.2'
       - run: |
-          make build
+          ./app/gradlew :build
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
