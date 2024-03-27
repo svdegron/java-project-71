@@ -41,6 +41,7 @@ public class Stylish {
             case ADD -> " ".repeat(2) + "+ " + key + ": " + firstValue;
             case EDIT -> " ".repeat(2) + "- " + key + ": " + firstValue + System.lineSeparator()
                 + " ".repeat(2) + "+ " + key + ": " + list.get(2);
+            default -> null;
         };
     }
 }
