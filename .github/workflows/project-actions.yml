@@ -5,10 +5,6 @@ jobs:
   Build-task:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: |
-          ./app/gradlew init
-          ./app/gradlew :build
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
@@ -17,3 +13,7 @@ jobs:
         with:
           coverageCommand: ./app/gradlew jacocoTestReport
           coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+      - uses: actions/checkout@v3
+      - run: |
+          ./app/gradlew init
+          ./app/gradlew :build
