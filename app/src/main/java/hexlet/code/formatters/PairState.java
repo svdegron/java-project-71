@@ -6,7 +6,7 @@ public enum PairState {
     ADD("add"),
     EDIT("edit");
 
-    public final String label;
+    private final String label;
 
     PairState(String label) {
         this.label = label;

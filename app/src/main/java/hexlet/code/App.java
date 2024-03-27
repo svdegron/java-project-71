@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
 public class App implements Callable<Integer> {
 
     @Option(names = { "-f", "--format" }, description = "output format [default: stylish]")
-    public String format;
+    private String format;
 
     @Parameters(paramLabel = "filepath1", description = "path to first file")
     private String filepath1;
@@ -26,6 +26,10 @@ public class App implements Callable<Integer> {
     private String filepath2;
 
     @Override
+    /**
+     * Calculate the square of a rectangle.
+     * @return integer number
+     */
     public Integer call() {
         String diff;
 

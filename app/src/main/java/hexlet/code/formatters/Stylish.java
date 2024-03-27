@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 //import static hexlet.code.Formatter.SECOND_VALUE;
 
 public class Stylish {
-//    private static final int DIFFER = 2;
-//    private static final int MATCH = DIFFER + 2;
+    private static final int DIFFER = 2;
+    private static final int MATCH = DIFFER + 2;
 
     public static String toStylish(Map<String, List<Object>> map) {
         // В зависимости от операционной системы
@@ -36,11 +36,11 @@ public class Stylish {
         var firstValue = list.get(1);
 
         return switch (action) {
-            case EXIST -> " ".repeat(4) + key + ": " + firstValue;
-            case DELETE -> " ".repeat(2) + "- " + key + ": " + firstValue;
-            case ADD -> " ".repeat(2) + "+ " + key + ": " + firstValue;
-            case EDIT -> " ".repeat(2) + "- " + key + ": " + firstValue + System.lineSeparator()
-                + " ".repeat(2) + "+ " + key + ": " + list.get(2);
+            case EXIST -> " ".repeat(MATCH) + key + ": " + firstValue;
+            case DELETE -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
+            case ADD -> " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
+            case EDIT -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
+                + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(2);
             default -> null;
         };
     }

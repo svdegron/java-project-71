@@ -5,7 +5,7 @@ public enum Format {
     PLAIN("plain"),
     JSON("json");
 
-    public final String label;
+    private final String label;
 
     Format(String label) {
         this.label = label;
