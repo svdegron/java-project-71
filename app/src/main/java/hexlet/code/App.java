@@ -24,13 +24,13 @@ public class App implements Callable<Integer> {
 
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     private String filepath2;
-
-    @Override
+    
     /**
      * Calculate the square of a rectangle.
      * @return integer number
      */
-    public Integer call() {
+    @Override
+    public final Integer call() {
         String diff;
 
         try {
