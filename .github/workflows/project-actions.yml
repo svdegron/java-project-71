@@ -10,6 +10,9 @@ jobs:
       - run: |
           ./app/gradlew init
           ./app/gradlew :build
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 9
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
@@ -18,4 +21,3 @@ jobs:
         with:
           coverageCommand: ./app/gradlew jacocoTestReport
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-          debug: false
