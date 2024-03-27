@@ -13,17 +13,7 @@ import static hexlet.code.Formatter.getDifferMap;
 
 public class Differ {
 
-    public static String generate(String filepath1, String filepath2, String format) throws IOException {
-        if (format == null) {
-            format = "stylish";
-        }
-
-        Map<String, List<Object>> map = generate(filepath1, filepath2);
-
-        return getResult(map, format);
-    }
-
-    public static Map<String, List<Object>> generate(String filepath1, String filepath2) throws IOException {
+    public static String generate(String filepath1, String filepath2) throws IOException {
         var firstContent = getFileContent(Paths.get(filepath1));
         var secondContent = getFileContent(Paths.get(filepath2));
 
@@ -37,12 +27,37 @@ public class Differ {
             return null;
         }
 
-        return getDifferMap(firstMap, secondMap);
+        Map<String, List<Object>> map = getDifferMap(firstMap, secondMap);
+
+        return getResult(map, "stylish");
+    }
+
+    public static String generate(String filepath1, String filepath2, String format) throws IOException {
+        if (format == null) {
+            format = "stylish";
+        }
+
+        var firstContent = getFileContent(Paths.get(filepath1));
+        var secondContent = getFileContent(Paths.get(filepath2));
+
+        Map<String, Object> firstMap;
+        Map<String, Object> secondMap;
+
+        try {
+            firstMap = getMap(firstContent);
+            secondMap = getMap(secondContent);
+        } catch (Exception e) {
+            return null;
+        }
+
+        Map<String, List<Object>> map = getDifferMap(firstMap, secondMap);
+
+        return getResult(map, format);
     }
 
     public static String getFileContent(Path path) throws IOException {
         if (!Files.exists(path)) {
-            throw new IOException("Check 1 that the file \"" + path + "\" exists and can be accessed");
+            throw new IOException("Check that the files exists and can be accessed");
         }
 
         return Files.readString(path);
