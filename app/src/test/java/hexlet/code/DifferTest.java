@@ -13,24 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DifferTest {
     private static final Path RESOURCE_DIRECTORY = Paths.get("src", "test", "resources");
     private static final String ABSOLUTE_PATH = RESOURCE_DIRECTORY.toFile().getAbsolutePath();
-    private static final String FILE_1 = String.join(File.separator, ABSOLUTE_PATH, "file1.json");
-    private static final String FILE_2 = String.join(File.separator, ABSOLUTE_PATH, "file2.json");
-    private static final String FILE_3 = String.join(File.separator, ABSOLUTE_PATH, "file3.yml");
-    private static final String FILE_4 = String.join(File.separator, ABSOLUTE_PATH, "file4.yml");
-    private static final String FILE_5 = String.join(File.separator, ABSOLUTE_PATH, "file5.json");
-    private static final String FILE_6 = String.join(File.separator, ABSOLUTE_PATH, "file6.json");
-    private static final String FILE_7 = String.join(File.separator, ABSOLUTE_PATH, "file7.yml");
-    private static final String FILE_8 = String.join(File.separator, ABSOLUTE_PATH, "file8.yml");
-    private static final String RESULT_DEFAULT = String.join(System.lineSeparator(),
-        "{",
-        " ".repeat(2) + "- follow: false",
-        " ".repeat(4) + "host: hexlet.io",
-        " ".repeat(2) + "- proxy: 123.234.53.22",
-        " ".repeat(2) + "- timeout: 50",
-        " ".repeat(2) + "+ timeout: 20",
-        " ".repeat(2) + "+ verbose: true",
-        "}"
-    );
+    private static final String FILE_1 = String.join(File.separator, ABSOLUTE_PATH, "fixtures", "file1.json");
+    private static final String FILE_2 = String.join(File.separator, ABSOLUTE_PATH, "fixtures", "file2.json");
+    private static final String FILE_3 = String.join(File.separator, ABSOLUTE_PATH, "fixtures", "file1.yml");
+    private static final String FILE_4 = String.join(File.separator, ABSOLUTE_PATH, "fixtures", "file2.yml");
+
     private static final String RESULT_STYLISH = String.join(System.lineSeparator(),
         "{",
         " ".repeat(4) + "chars1: [a, b, c]",
@@ -113,83 +100,50 @@ public class DifferTest {
     );
 
     @Test
-    public void generateJsonToDefault() {
-        try {
-            var actual = generate(FILE_1, FILE_2, null);
-            assertEquals(RESULT_DEFAULT, actual);
-        } catch (IOException e) {
-            assertEquals("RESULT", e.getMessage());
-        }
+    public void generateJsonToDefault() throws IOException {
+        var actual = generate(FILE_1, FILE_2);
+        assertEquals(RESULT_STYLISH, actual);
     }
 
     @Test
-    public void generateJsonToStylish() {
-        try {
-            var actual = generate(FILE_5, FILE_6, "stylish");
-            assertEquals(RESULT_STYLISH, actual);
-        } catch (IOException e) {
-            assertEquals("RESULT", e.getMessage());
-        }
+    public void generateJsonToStylish() throws IOException {
+        var actual = generate(FILE_1, FILE_2, "stylish");
+        assertEquals(RESULT_STYLISH, actual);
     }
 
     @Test
-    public void generateJsonToPlain() {
-        try {
-            var actual = generate(FILE_5, FILE_6, "plain");
-            assertEquals(RESULT_PLAIN, actual);
-        } catch (IOException e) {
-            assertEquals("RESULT", e.getMessage());
-        }
+    public void generateJsonToPlain() throws IOException {
+        var actual = generate(FILE_1, FILE_2, "plain");
+        assertEquals(RESULT_PLAIN, actual);
     }
 
     @Test
-    public void generateJsonToJson() {
-        try {
-            var actual = generate(FILE_5, FILE_6, "json");
-            assertEquals(RESULT_JSON, actual);
-        } catch (IOException e) {
-            assertEquals("RESULT", e.getMessage());
-        }
+    public void generateJsonToJson() throws IOException {
+        var actual = generate(FILE_1, FILE_2, "json");
+        assertEquals(RESULT_JSON, actual);
     }
 
     @Test
-    public void generateYamlToDefault() {
-        try {
-            var actual = generate(FILE_3, FILE_4, null);
-            assertEquals(RESULT_DEFAULT, actual);
-        } catch (IOException e) {
-            assertEquals("RESULT", e.getMessage());
-        }
+    public void generateYamlToDefault() throws IOException {
+        var actual = generate(FILE_3, FILE_4);
+        assertEquals(RESULT_STYLISH, actual);
     }
 
     @Test
-    public void generateYamlToStylish() {
-        try {
-            var actual = generate(FILE_7, FILE_8, "stylish");
-            assertEquals(RESULT_STYLISH, actual);
-        } catch (IOException e) {
-            assertEquals("RESULT", e.getMessage());
-        }
+    public void generateYamlToStylish() throws IOException {
+        var actual = generate(FILE_3, FILE_4, "stylish");
+        assertEquals(RESULT_STYLISH, actual);
     }
 
     @Test
-    public void generateYamlToPlain() {
-        try {
-            var actual = generate(FILE_7, FILE_8, "plain");
-            assertEquals(RESULT_PLAIN, actual);
-        } catch (IOException e) {
-            assertEquals("RESULT", e.getMessage());
-        }
+    public void generateYamlToPlain() throws IOException {
+        var actual = generate(FILE_3, FILE_4, "plain");
+        assertEquals(RESULT_PLAIN, actual);
     }
 
     @Test
-    public void generateYamlToJson() {
-        try {
-            var actual = generate(FILE_7, FILE_8, "json");
-            assertEquals(RESULT_JSON, actual);
-        } catch (IOException e) {
-            assertEquals("RESULT", e.getMessage());
-        }
-
+    public void generateYamlToJson() throws IOException {
+        var actual = generate(FILE_3, FILE_4, "json");
+        assertEquals(RESULT_JSON, actual);
     }
 }

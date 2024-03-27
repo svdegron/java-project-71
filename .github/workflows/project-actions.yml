@@ -7,8 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          ls -la
-          ls -la app
           make build
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
