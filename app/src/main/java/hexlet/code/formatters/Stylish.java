@@ -39,12 +39,14 @@ public class Stylish {
 //        System.out.println(action); // exist
 //        System.out.println(action.getClass().getSimpleName()); // String
 
-        return switch (action) {
+        String temp = switch (action) {
             case "exist" -> " ".repeat(MATCH) + key + ": " + firstValue;
             case "delete" -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
             case "add" -> " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
             case "edit" -> editString(key, firstValue, list.get(2));
-            default -> throw new RuntimeException("Unknown option action");
+            default -> "";
         };
+
+        return temp;
     }
 }
