@@ -27,6 +27,11 @@ public class Stylish {
                 System.lineSeparator() + "}"));
     }
 
+    public static String editString(String key, Object firstValue, Object secondValue) {
+        return " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
+            + " ".repeat(DIFFER) + "+ " + key + ": " + secondValue;
+    }
+
     private static String getString(String key, List<Object> list) {
         var action = (PairState) list.get(0);
         var firstValue = list.get(1);
@@ -35,10 +40,7 @@ public class Stylish {
             case EXIST -> " ".repeat(MATCH) + key + ": " + firstValue;
             case DELETE -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
             case ADD -> " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
-            case EDIT -> {
-                yield " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
-                    + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(2);
-            }
+            case EDIT -> editString(key, firstValue, list.get(2));
             default -> null;
 //        switch (action) {
 //            case EXIST:
