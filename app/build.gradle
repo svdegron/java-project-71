@@ -25,18 +25,18 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.16.2'
 }
 
-//tasks.test {
-//    useJUnitPlatform()
-//    jacocoTestReport
-//}
-
-run {
-    standardInput = System.in
+tasks.test {
+    useJUnitPlatform()
 }
 
-jacocoTestReport {
+tasks.jacocoTestReport {
     reports {
         xml.required = true
         html.required = true
     }
 }
+
+run {
+    standardInput = System.in
+}
+

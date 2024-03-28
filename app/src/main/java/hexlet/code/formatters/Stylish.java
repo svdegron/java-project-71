@@ -4,10 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-//import static hexlet.code.Formatter.ACTION;
-//import static hexlet.code.Formatter.FIRST_VALUE;
-//import static hexlet.code.Formatter.SECOND_VALUE;
-
 public class Stylish {
     private static final int DIFFER = 2;
     private static final int MATCH = DIFFER + 2;
@@ -45,8 +41,8 @@ public class Stylish {
             case EDIT:
                 return " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
                     + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(2);
+            default:
+                return null;
         }
-
-        return null;
     }
 }
