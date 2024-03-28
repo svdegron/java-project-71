@@ -33,14 +33,17 @@ public class Stylish {
     }
 
     private static String getString(String key, List<Object> list) {
-        var action = (PairState) list.get(0);
+        var action = list.get(0).toString();
         var firstValue = list.get(1);
 
+//        System.out.println(action);
+//        System.out.println(action.getClass().getSimpleName());
+
         return switch (action) {
-            case EXIST -> (" ".repeat(MATCH) + key + ": " + firstValue);
-            case DELETE -> (" ".repeat(DIFFER) + "- " + key + ": " + firstValue);
-            case ADD -> (" ".repeat(DIFFER) + "+ " + key + ": " + firstValue);
-            case EDIT -> editString(key, firstValue, list.get(2));
+            case "exist" -> (" ".repeat(MATCH) + key + ": " + firstValue);
+            case "delete" -> (" ".repeat(DIFFER) + "- " + key + ": " + firstValue);
+            case "add" -> (" ".repeat(DIFFER) + "+ " + key + ": " + firstValue);
+            case "edit" -> editString(key, firstValue, list.get(2));
             default -> throw new RuntimeException("Unknown option action");
         };
     }
