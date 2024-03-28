@@ -37,23 +37,11 @@ public class Stylish {
         var firstValue = list.get(1);
 
         return switch (action) {
-            case EXIST -> " ".repeat(MATCH) + key + ": " + firstValue;
-            case DELETE -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
-            case ADD -> " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
+            case EXIST -> (" ".repeat(MATCH) + key + ": " + firstValue);
+            case DELETE -> (" ".repeat(DIFFER) + "- " + key + ": " + firstValue);
+            case ADD -> (" ".repeat(DIFFER) + "+ " + key + ": " + firstValue);
             case EDIT -> editString(key, firstValue, list.get(2));
-            default -> null;
-//        switch (action) {
-//            case EXIST:
-//                return " ".repeat(MATCH) + key + ": " + firstValue;
-//            case DELETE:
-//                return " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
-//            case ADD:
-//                return " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
-//            case EDIT:
-//                return " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
-//                    + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(2);
-//            default:
-//                return null;
+            default -> throw new RuntimeException("Unknown option action");
         };
     }
 }
