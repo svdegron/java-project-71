@@ -35,8 +35,10 @@ public class Stylish {
             case EXIST -> " ".repeat(MATCH) + key + ": " + firstValue;
             case DELETE -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue;
             case ADD -> " ".repeat(DIFFER) + "+ " + key + ": " + firstValue;
-            case EDIT -> " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
-                + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(2);
+            case EDIT -> {
+                yield " ".repeat(DIFFER) + "- " + key + ": " + firstValue + System.lineSeparator()
+                    + " ".repeat(DIFFER) + "+ " + key + ": " + list.get(2);
+            }
             default -> null;
 //        switch (action) {
 //            case EXIST:
