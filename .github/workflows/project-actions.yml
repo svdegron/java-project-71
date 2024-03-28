@@ -7,9 +7,11 @@ jobs:
     steps:
       - name: Gradle
         uses: actions/checkout@v3
-      - run: |
-          ./app/gradlew init
-          ./app/gradlew :build
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.5
+          arguments: build
+          build-root-directory: app
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
