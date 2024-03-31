@@ -26,7 +26,7 @@ public class App implements Callable<Integer> {
     private String filepath2;
 
     /**
-     * Calculate the square of a rectangle.
+     * Starting the program.
      * @return integer number
      */
     @Override
