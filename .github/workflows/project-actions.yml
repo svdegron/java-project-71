@@ -1,4 +1,5 @@
 name: Java CI
+run-name: Workflow «${{ github.workflow }}» by ${{ github.actor }} 🚀
 
 on:
   - push
@@ -19,20 +20,8 @@ jobs:
           gradle-version: 8.5
           arguments: build
           build-root-directory: app
-      - run: pwd
-      - run: ls -la
-      - run: ls app
-      - run: |
+      - name: checkstyleMain and test
+        run: |
           cd app
           ./gradlew checkstyleMain
-          ./gradlew test
-      # - name: Test & publish code coverage
-      #   uses: paambaati/codeclimate-action@v5.0.0
-      #   env:
-      #     CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-      #     JACOCO_SOURCE_PATH: ${{github.workspace}}/app/src/main/java
-      #   with:
-      #     coverageCommand: |
-      #       ./app/gradlew checkstyleMain
-      #       ./app/gradlew test
-      # 
+          ./gradlew 
