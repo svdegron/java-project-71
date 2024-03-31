@@ -1,19 +1,24 @@
 plugins {
     id 'java'
+    id 'application'
     id 'checkstyle'
     id 'jacoco'
-    id 'application'
 }
 
 group = 'hexlet.code'
 version = '1.0-SNAPSHOT'
 
+repositories {
+    mavenCentral()
+}
+
 application {
     mainClass = 'hexlet.code.App'
 }
 
-repositories {
-    mavenCentral()
+jacoco {
+    toolVersion = "0.8.10"
+    reportsDirectory = layout.buildDirectory.dir('reports/jacoco')
 }
 
 dependencies {
@@ -23,20 +28,24 @@ dependencies {
     implementation group: 'info.picocli', name: 'picocli', version: '4.7.5'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
     implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.16.2'
+    // https://mvnrepository.com/artifact/org.jacoco/org.jacoco.core
+    implementation group: 'org.jacoco', name: 'org.jacoco.core', version: '0.8.10'
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.jacocoTestReport {
+jacocoTestReport {
+    dependsOn test
     reports {
         xml.required = true
-        html.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/test/html')
     }
 }
 
-run {
-    standardInput = System.in
+test {
+    finalizedBy jacocoTestReport
+    useJUnitPlatform()
+    test.testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        exceptionFormat "full"
+    }
 }
-
