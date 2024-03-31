@@ -25,9 +25,7 @@ jobs:
       - run: |
           cd app
           ./gradlew checkstyleMain
-      - run: |
-          cd app
-          ./app/gradlew test
+          ./gradlew test
       # - name: Test & publish code coverage
       #   uses: paambaati/codeclimate-action@v5.0.0
       #   env:
