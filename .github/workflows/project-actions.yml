@@ -24,4 +24,4 @@ jobs:
         run: |
           cd app
           ./gradlew checkstyleMain
-          ./gradlew 
+          ./gradlew test
